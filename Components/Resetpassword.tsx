@@ -2,10 +2,11 @@ import * as React from 'react';
 import { View ,Text,StyleSheet,SafeAreaView,TextInput} from 'react-native';
 import { Button } from '@react-native-material/core';
 import { Navigation } from 'react-native-navigation';
+import Icon from 'react-native-vector-icons/AntDesign'
 import Login from './Login';
 
 
-const login = {Login};
+const Logout = {Login};
 
 const Resetpassword =({navigation})=>{
 
@@ -15,13 +16,6 @@ const Resetpassword =({navigation})=>{
 
     return(
         <SafeAreaView style={styles.container}>
-            <Button 
-            variant="text" 
-            title="< เข้าสู่ระบบ" 
-            color='black' 
-            style={styles.button1} 
-            onPress={() => navigation.navigate('login')}
-            />
             <Text style={styles.textforgetpassword} >
                 ลืมรหัสผ่าน
             </Text>
@@ -44,7 +38,12 @@ const Resetpassword =({navigation})=>{
                 onChangeText={onChangeText2}
                 value={text2}
             />
-            <Button title="ยืนยัน" color="#00979C" tintColor="white" style={styles.button2} />
+            <Button 
+            title="ยืนยัน" 
+            color="#00979C" 
+            tintColor="white" 
+            style={styles.button2}
+            onPress={() => navigation.navigate('Logout')} />
             
         </SafeAreaView>
     )
@@ -60,10 +59,9 @@ const styles = StyleSheet.create({
     textforgetpassword:{
         textAlign:'center',
         fontSize: 16,
-        marginTop:-30
-    },
+        },
     textusername:{
-        marginTop: 80,
+        marginTop: 30,
         marginLeft: 50,
         color:'#999999'
     },
@@ -81,10 +79,6 @@ const styles = StyleSheet.create({
     text:{
         marginLeft: 50,
         color:'#999999'
-    },
-    button1:{
-        marginRight:270,
-        color: '#000000'
     },
     button2:{
         alignItems: 'center',

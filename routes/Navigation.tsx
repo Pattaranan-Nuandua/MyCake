@@ -2,18 +2,19 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-//import Icon from 'react-native-vector-icons/MaterialIcons'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import SplashScreen from '../Components/SplashScreen';
-import Home from '../Components/Home';
+import HomeScreen from '../Components/Home';
 import Login from '../Components/Login';
 import Register from '../Components/Register';
 import Resetpassword from '../Components/Resetpassword';
 import Active from '../Components/Active';
 import Insole from '../Components/Insole';
 import Settings from '../Components/Settings';
-//import { Stack } from '@react-native-material/core';
+import Privacy from '../Components/Privacy';
+import EditProfile from '../Components/EditProfile';
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -26,7 +27,7 @@ const BottomTabNavScreenGroup =()=>{
                 tabBarIcon: ({color, size}) => {
                     let iconName = '';
                     switch (route.name){
-                        case 'home':
+                        case 'Home':
                             iconName = 'home';
                             break;
                         case 'Active':
@@ -35,10 +36,10 @@ const BottomTabNavScreenGroup =()=>{
                         case 'Insole':
                             iconName = 'analytics';
                             break;
-                        case 'settings':
+                        case 'Settings':
                             iconName = 'settings';
                             break;
-                        case 'login':
+                        case 'Logout':
                             iconName = 'ios-log-out-outline';
                             break;
                     }
@@ -49,8 +50,8 @@ const BottomTabNavScreenGroup =()=>{
                 options={{
                     headerShown: false,
                 }}
-                name="home"
-                component={Home}
+                name="Home"
+                component={HomeScreen}
             />
             <Tab.Screen
                 options={{
@@ -70,14 +71,14 @@ const BottomTabNavScreenGroup =()=>{
                 options={{
                     headerShown: false,
                 }}
-                name="settings"
+                name="Settings"
                 component={Settings}
             />
             <Tab.Screen
                 options={{
                     headerShown: false,
                 }}
-                name="login"
+                name="Logout"
                 component={Login}
             />
             </Tab.Navigator>
@@ -114,6 +115,20 @@ const MainStackScreen =()=>{
                 }}
                 name="register"
                 component={Register}
+            />
+            <Stack.Screen
+                options={{
+                    headerShown: false,
+                }}
+                name="privacy"
+                component={Privacy}
+            />
+            <Stack.Screen
+                options={{
+                    headerShown: false,
+                }}
+                name="editprofile"
+                component={EditProfile}
             />
         </Stack.Navigator>
     )

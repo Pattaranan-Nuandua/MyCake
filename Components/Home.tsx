@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Text,StyleSheet, View} from 'react-native';
 
-const Home =()=>{
+const HomeScreen =()=>{
     return(
         <View style={styles.container}>
             <Text>
@@ -21,4 +21,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
-export default Home;
+export default HomeScreen;

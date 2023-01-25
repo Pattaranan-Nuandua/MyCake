@@ -1,12 +1,9 @@
 import * as React from 'react';
-import { View ,Text,StyleSheet,SafeAreaView,TextInput } from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
+import { SafeAreaView,Text,StyleSheet,TextInput } from 'react-native';
 import { Button} from '@react-native-material/core';
-import { Navigation } from 'react-native-navigation';
-import Login from './Login';
-import Privacy from './Privacy';
+import Settings from './Settings';
 
-const Register=({navigation})=>{
+const EditProfile = ({navigation})=>{
 
     const [text0, onChangeText0] = React.useState("");
     const [text1, onChangeText1] = React.useState("");
@@ -15,13 +12,11 @@ const Register=({navigation})=>{
     const [text4, onChangeText4] = React.useState("");
     const [text5, onChangeText5] = React.useState("");
     const [text6, onChangeText6] = React.useState("");
-    const [text7, onChangeText7] = React.useState("");
-    const [toggleCheckBox, setToggleCheckBox] = React.useState(false);
 
     return(
         <SafeAreaView style={styles.container}>
             <Text style={styles.textforgetpassword} >
-                ลงทะเบียน
+                แก้ไขข้อมูล
             </Text>
             <Text style={styles.textusername}>Email</Text>
             <TextInput
@@ -65,31 +60,12 @@ const Register=({navigation})=>{
                 onChangeText={onChangeText6}
                 value={text6}
             />
-            <Text style={styles.text3}>รายละเอียด</Text>
-            <TextInput
-                style={styles.input4}
-                onChangeText={onChangeText7}
-                value={text7}
-            />
-            <View>
-                <CheckBox 
-                    style={styles.checkboxContainer}
-                    disabled={false}
-                    value={toggleCheckBox}
-                    onValueChange={(newValue) => setToggleCheckBox(newValue)}
-                />
-                <Text 
-                    style={styles.label}
-                    onPress={() => navigation.navigate('privacy')}>
-                    Privacy Policy
-                </Text>
-            </View>
             <Button 
                 title="ยืนยัน" 
                 color="#00979C" 
                 tintColor="white" 
                 style={styles.button1}
-                onPress={() => navigation.navigate('Logout')}
+                onPress={() => navigation.navigate('Settings')}
                 />
         </SafeAreaView>
     )
@@ -192,4 +168,4 @@ const styles = StyleSheet.create({
         color: '#000000'
     },
 })
-export default Register;
+export default EditProfile;

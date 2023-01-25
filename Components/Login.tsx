@@ -4,15 +4,11 @@ import LinearGradient from 'react-native-linear-gradient';
 import { Button } from '@react-native-material/core';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import logofoot from '../Image/logo.png';
-import Home from './Home';
+import HomeScreen from './Home';
 import Register from './Register';
 import Resetpassword from './Resetpassword';
 import { Navigation } from 'react-native-navigation';
 import { useIsFocused } from '@react-navigation/native';
-
-const home = {Home};
-const resetpasseord = {Resetpassword};
-const register = {Register};
 
 
 const Login = ({navigation}) =>{
@@ -62,7 +58,12 @@ const Login = ({navigation}) =>{
                     ลืมรหัสผ่าน ?
                     </Text>
                 </View>
-                    <Button title="เข้าสู่ระบบ" color="#00979C" tintColor="white" style={styles.button1} onPress={() => navigation.navigate('home')} />
+                    <Button 
+                        title="เข้าสู่ระบบ" 
+                        color="#00979C" 
+                        tintColor="white" 
+                        style={styles.button1} 
+                        onPress={() => navigation.navigate('Home')} />
                 </LinearGradient>
         </View>
         )
