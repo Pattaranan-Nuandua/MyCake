@@ -1,8 +1,16 @@
-import React from 'react';
+import * as React from 'react';
 import { View, Text, StyleSheet,Image,SafeAreaView } from "react-native";
+import {NavigationHelpers, StackActions} from '@react-navigation/native';
 import logofoot from '../Image/logo.png';
 
-const Open =()=>{
+interface Props {
+  navigation: NavigationHelpers<any, any>;
+}
+
+const SplashScreen = ({navigation}: Props) => {
+  setTimeout(() => {
+    navigation.dispatch(StackActions.replace('BottomTabNavScreenGroup'));
+  }, 4000);
     const logo = Image.resolveAssetSource(logofoot).uri;
     return(
     <SafeAreaView style = {styles.container}>
@@ -25,4 +33,4 @@ const styles = StyleSheet.create({
         height: 120,
     }
   })
-export default Open;
+export default SplashScreen;

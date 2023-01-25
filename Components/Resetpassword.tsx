@@ -1,18 +1,27 @@
 import * as React from 'react';
 import { View ,Text,StyleSheet,SafeAreaView,TextInput} from 'react-native';
 import { Button } from '@react-native-material/core';
+import { Navigation } from 'react-native-navigation';
 import Login from './Login';
 
-const Resetpassword =()=>{
+
+const login = {Login};
+
+const Resetpassword =({navigation})=>{
 
     const [text0, onChangeText0] = React.useState("");
     const [text1, onChangeText1] = React.useState("");
     const [text2, onChangeText2] = React.useState("");
-    const [open,onPress] = React.useState();
 
     return(
         <SafeAreaView style={styles.container}>
-            <Button variant="text" title="<เข้าสู่ระบบ" color='black' style={styles.button1}/>
+            <Button 
+            variant="text" 
+            title="< เข้าสู่ระบบ" 
+            color='black' 
+            style={styles.button1} 
+            onPress={() => navigation.navigate('login')}
+            />
             <Text style={styles.textforgetpassword} >
                 ลืมรหัสผ่าน
             </Text>

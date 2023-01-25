@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SafeAreaView, StyleSheet, TextInput ,View,Text,Image,Alert} from "react-native";
+import { SafeAreaView, StyleSheet, TextInput ,View,Text,Image,Alert,TouchableOpacity ,StatusBar} from "react-native";
 import LinearGradient from 'react-native-linear-gradient';
 import { Button } from '@react-native-material/core';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
@@ -7,20 +7,34 @@ import logofoot from '../Image/logo.png';
 import Home from './Home';
 import Register from './Register';
 import Resetpassword from './Resetpassword';
+import { Navigation } from 'react-native-navigation';
+import { useIsFocused } from '@react-navigation/native';
 
-const Login = ({}) =>{
+const home = {Home};
+const resetpasseord = {Resetpassword};
+const register = {Register};
 
+
+const Login = ({navigation}) =>{
+
+    //const ReusableItem = ({ onPress }) => <Item title="Edit" onPress={onPress} />;
     const logo = Image.resolveAssetSource(logofoot).uri;
     const [text0, onChangeText0] = React.useState("");
     const [text1, onChangeText1] = React.useState("");
     const [open,onPress] = React.useState('');
+    //const onPress = this.props.navigation;
+    //const {goBack} = this.props.navigation;
+    //const { navigate} = this.props.navigation;
+
     return(
             <View>
                 <LinearGradient
                     colors={['#00979C' , 'white' ]}
                     height = '100%'
                     width = '100%'
+                    
                 >
+                
                 <Text style={styles.textwelcome}>ยินดีต้อนรับเข้าสู่ระบบ</Text>
                 <Image source={{uri: logo}}
                     style = {styles.image}/>
@@ -38,19 +52,17 @@ const Login = ({}) =>{
                     value={text1}
                     placeholder="Password"
                 />
-                <View
-                    onStartShouldSetResponder={(Home) => this.onPress('ลงทะเบียน')}>
-                    <Text style={styles.textregistor} >
+                <View>
+                    <Text style={styles.textregistor} onPress={() => navigation.navigate('register')}>
                     ลงทะเบียน
                     </Text>
                 </View>
-                <View
-                    onStartShouldSetResponder={(Home) => this.onPress('ลืมรหัสผ่าน')}>
-                    <Text style={styles.textforget} >
+                <View>
+                    <Text style={styles.textforget} onPress={() => navigation.navigate('forgetpassword')}>
                     ลืมรหัสผ่าน ?
                     </Text>
                 </View>
-                    <Button title="เข้าสู่ระบบ" color="#00979C" tintColor="white" style={styles.button1} />
+                    <Button title="เข้าสู่ระบบ" color="#00979C" tintColor="white" style={styles.button1} onPress={() => navigation.navigate('home')} />
                 </LinearGradient>
         </View>
         )
@@ -58,6 +70,7 @@ const Login = ({}) =>{
 
 const styles = StyleSheet.create({
     container:{
+        
        // width: "100%",
         //height: "100%",
        // alignItems: 'center',
