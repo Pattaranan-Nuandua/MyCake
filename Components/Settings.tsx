@@ -16,7 +16,7 @@ const Settings =({navigation})=>{
                     style={styles.box} />
                     <Icon 
                         name="square-edit-outline" 
-                        size={30} color="#000" 
+                        size={30} color="#00979C" 
                         style={styles.icon} />
                     <Text 
                         style={styles.Text}
@@ -30,7 +30,7 @@ const Settings =({navigation})=>{
 
 const styles = StyleSheet.create({
     contrainer:{
-        backgroundColor: "#FFFF",
+        backgroundColor: "#ffff",
         width: "100%",
         height: "100%",
     },
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     box:{
-        backgroundColor: '#D9D9D9', 
+        backgroundColor: '#f0f0f0', 
         width:300, 
         height:50, 
         borderRadius:10,

@@ -43,7 +43,7 @@ const BottomTabNavScreenGroup =()=>{
                             iconName = 'ios-log-out-outline';
                             break;
                     }
-                    return <Icon name={iconName} size={size} color={color} />;
+                    return <Icon name={iconName} size={size} color='#00979C' />;
                 },
         })}>
             <Tab.Screen
