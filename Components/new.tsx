@@ -1,38 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet,Platform,TouchableOpacity } from 'react-native';
-import { Button } from '@react-native-material/core';
+import { View, Text, TouchableOpacity, Platform } from 'react-native';
 import { BleManager } from 'react-native-ble-plx';
 import { Navigation } from 'react-native-navigation';
 
 const M5SITCKCPLUS_UUID = 'fe8775b4-243b-4aae-a7b8-c4c3ed0f55e3';
 const M5STICKCPLUS_CHARACTERISTIC = '673edd34-caf8-41f6-8605-715a69b2a943';
 
-const ScanBluetooth = ({navigation}) => {
-  const [scanning, setScanning] = useState<boolean>(false);
+const Bluetooth: React.FC = ({navigation}) => {
   const [isConnected, setIsConnected] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [devices, setDevices] = useState([]);
-  const [selectedDevice, setSelectedDevice] = useState<string | null>(null)
+  const [selectedDevice, setSelectedDevice] = useState<string | null>(null);
   const manager = new BleManager();
-
-  const handleScan = () => {
-    if (scanning) {
-      manager.stopDeviceScan();
-      setScanning(false);
-      return;
-    }
-    setDevices([]);
-    setScanning(true);
-    manager.startDeviceScan(null, null, (error, device) => {
-      if (error) {
-        console.log(error);
-        return;
-      }
-      if (!devices.some((d) => d.id === device.id)) {
-        setDevices((devices) => [...devices, device]);
-      }
-    });
-  };
 
   useEffect(() => {
     if (Platform.OS === 'ios') {
@@ -68,23 +47,8 @@ const ScanBluetooth = ({navigation}) => {
     }
   };
 
-  useEffect(() => {
-    return () => {
-      manager.stopDeviceScan();
-    };
-  }, []);
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>
-        ค้นหาอุปกรณ์
-      </Text>
-      <Button 
-      style={styles.button}
-      title={scanning ? 'Stop Scan' : 'Start Scan'} 
-      onPress={handleScan}
-      color="#00979C"
-      tintColor="white"   />
+    <View style={{marginTop:200}}>
       {devices.length > 0 ? (
         <>
           <Text>Select a device to connect:</Text>
@@ -110,24 +74,5 @@ const ScanBluetooth = ({navigation}) => {
     </View>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#ffff",
-    width: "100%",
-    height: "100%",
-  },
-  button:{
-    marginTop:300,
-    //alignItems: 'center',
-    marginLeft:90,
-    width:205,
-    //textAlign:'center'
-  },
-  text:{
-    marginTop:50,
-    textAlign:'center',
-    fontSize: 20,
-  }
-});
 
-export default ScanBluetooth;
+export default Bluetooth;

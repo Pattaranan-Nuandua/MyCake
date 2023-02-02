@@ -15,6 +15,7 @@ import Settings from '../Components/Settings';
 import Privacy from '../Components/Privacy';
 import EditProfile from '../Components/EditProfile';
 import ScanBluetooth from '../Components/ScanBluetooth';
+import Bluetooth from '../Components/new';
 
 
 const Stack = createStackNavigator();
@@ -137,6 +138,13 @@ const MainStackScreen =()=>{
                 }}
                 name="scanble"
                 component={ScanBluetooth}
+            />
+            <Stack.Screen
+                options={{
+                    headerShown: false,
+                }}
+                name="1scanble"
+                component={Bluetooth}
             />
         </Stack.Navigator>
     )
