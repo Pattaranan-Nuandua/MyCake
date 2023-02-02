@@ -80,25 +80,25 @@ const styles = StyleSheet.create({
     image: {
         marginTop: 120,
         marginBottom: 90,
-        marginLeft:140,
+        marginLeft:160,
         width: 100,
         height: 120,
     },
     textwelcome: {
         marginLeft:30,
-        fontSize: 18,
+        fontSize: 20,
         marginBottom: 50,
         marginTop: 80,
         color: '#037A7E',
         fontWeight: 'bold',
     },
     textuse: {
-        marginLeft:40,
+        marginLeft:60,
         color: '#037A7E',
         marginTop:-50,
     },
     textpass:{
-        marginLeft:40,
+        marginLeft:60,
         color: '#037A7E',
     },
     input: {
@@ -110,21 +110,21 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: '#fff',
         backgroundColor:'#fff',
-        marginLeft:40,
+        marginLeft:50,
     },
     button1:{
         alignItems: 'center',
         marginTop:30,
-        marginLeft:140,
+        marginLeft:160,
         width:105,
     },
     textregistor:{
-        marginLeft:40,
+        marginLeft:60,
         color:'#037A7E'
     },
     textforget: {
         marginTop: -16,
-        marginLeft:260,
+        marginLeft:265,
         color:'#037A7E',
     },
     Btnconnect: {

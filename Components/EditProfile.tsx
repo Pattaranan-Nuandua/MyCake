@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     },
     textforgetpassword:{
         textAlign:'center',
-        fontSize: 16,
+        fontSize: 20,
         //marginTop:-30
     },
     textusername:{

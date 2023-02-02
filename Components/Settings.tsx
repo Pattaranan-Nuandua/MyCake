@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     },
     settingtext:{
         textAlign:'center',
-        fontSize: 16,
+        fontSize: 20,
     },
     box:{
         backgroundColor: '#f0f0f0', 

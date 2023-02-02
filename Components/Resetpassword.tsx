@@ -58,11 +58,11 @@ const styles = StyleSheet.create({
     },
     textforgetpassword:{
         textAlign:'center',
-        fontSize: 16,
+        fontSize: 20,
         },
     textusername:{
         marginTop: 30,
-        marginLeft: 50,
+        marginLeft: 60,
         color:'#999999'
     },
     input: {
@@ -74,16 +74,16 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: '#fff',
         backgroundColor:'#f0f0f0',
-        marginLeft:50,
+        marginLeft:60,
     },
     text:{
-        marginLeft: 50,
+        marginLeft: 60,
         color:'#999999'
     },
     button2:{
         alignItems: 'center',
         marginTop:30,
-        marginLeft:140,
+        marginLeft:160,
         width:105,
     }
 })

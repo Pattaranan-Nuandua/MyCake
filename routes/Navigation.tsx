@@ -14,6 +14,7 @@ import Insole from '../Components/Insole';
 import Settings from '../Components/Settings';
 import Privacy from '../Components/Privacy';
 import EditProfile from '../Components/EditProfile';
+import ScanBluetooth from '../Components/ScanBluetooth';
 
 
 const Stack = createStackNavigator();
@@ -129,6 +130,13 @@ const MainStackScreen =()=>{
                 }}
                 name="editprofile"
                 component={EditProfile}
+            />
+            <Stack.Screen
+                options={{
+                    headerShown: false,
+                }}
+                name="scanble"
+                component={ScanBluetooth}
             />
         </Stack.Navigator>
     )
