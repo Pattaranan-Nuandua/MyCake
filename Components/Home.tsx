@@ -1,8 +1,11 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import {Text,StyleSheet, View,SafeAreaView} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createServer } from "miragejs"
 import { Navigation } from 'react-native-navigation';
+import {connect} from './ListBLE';
+import { DEFAULT_SERVICES, device, restoreServices } from 'react-native-bluetooth-serial-next';
+import { Device } from 'react-native-ble-plx';
 interface Users {
     [key: string]: {
         name: string;
@@ -23,7 +26,7 @@ if (window.server) {
 
 window.server = createServer({
     routes() {
-    this.get("/api/users", () => {
+    this.get("http://10.0.2.2:5000/Mycake/login", () => {
     return {
         users: [
         { id: 1, 
@@ -34,7 +37,7 @@ window.server = createServer({
         weight: 45,
         high: 165,
         step: 542,
-        device: "esp32_1",
+        device: 'M5',
         status: "Active",}
         ],
         }
@@ -44,11 +47,16 @@ window.server = createServer({
 
 const HomeScreen =({navigation})=>{
     let [users, setUsers] = React.useState([])
+    const [items,setItems] = useState([]);
+    const [isLoading,setIsLoading] = useState([]);
 
     React.useEffect(() => {
-        fetch("/api/users")
+        fetch("http://10.0.2.2:5000/Mycake/login")
         .then((res) => res.json())
-        .then((json) => setUsers(json.users))
+        .then((result) => 
+            setItems(result),
+            setIsLoading(false),
+        )
     }, [])
 
     return(
@@ -57,12 +65,13 @@ const HomeScreen =({navigation})=>{
             <View>
                 <Icon 
                 name="add" 
-                size={25} color="#f9f9f9f9" 
+                size={25} color="#00979C" 
                 style={styles.icon} />
                 <Text style={styles.textaddDevice} onPress={() => navigation.navigate('scanble')}>
                     เพิ่มอุปกรณ์
                 </Text>
             </View>
+            <View style={styles.box}>
             <View style={styles.box}>
                 <View>
                     {users.map((user) => (
@@ -116,6 +125,7 @@ const HomeScreen =({navigation})=>{
                         ))}
                 </View>
             </View>
+            </View>
         </SafeAreaView>
     )
 }
@@ -123,7 +133,7 @@ const HomeScreen =({navigation})=>{
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor: "#00979C",
+        backgroundColor: "#ffff",
         width: "100%",
         height: "100%",
         alignItems: 'center',
@@ -131,7 +141,7 @@ const styles = StyleSheet.create({
     },
     text:{
         fontSize: 20,
-        color: '#f9f9f9f9',
+        color: '#00979C',
         fontWeight: 'bold',
         marginRight: 220,
         marginTop:-280,
@@ -153,7 +163,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginTop: -22,
         marginLeft: 245,
-        color: '#f9f9f9f9',
+        color: '#00979C',
         //fontWeight: 'bold',
     },
     name:{

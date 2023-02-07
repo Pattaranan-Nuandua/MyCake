@@ -16,6 +16,10 @@ import Privacy from '../Components/Privacy';
 import EditProfile from '../Components/EditProfile';
 import ScanBluetooth from '../Components/ScanBluetooth';
 import Bluetooth from '../Components/new';
+import DeviceModal from '../Components/ListBLE';
+import BluetoothComponent from '../Components/work';
+import ListBLE from '../Components/ListBLE';
+import Sighup from '../server/Sighup'
 
 
 const Stack = createStackNavigator();
@@ -117,7 +121,13 @@ const MainStackScreen =()=>{
                 }}
                 name="register"
                 component={Register}
-            />
+            /><Stack.Screen
+            options={{
+                headerShown: false,
+            }}
+            name="Register"
+            component={Sighup}
+        />
             <Stack.Screen
                 options={{
                     headerShown: false,
@@ -143,9 +153,17 @@ const MainStackScreen =()=>{
                 options={{
                     headerShown: false,
                 }}
-                name="1scanble"
+                name="ble"
                 component={Bluetooth}
             />
+            <Stack.Screen
+                options={{
+                    headerShown: false,
+                }}
+                name="listble"
+                component={ListBLE}
+            />
+            
         </Stack.Navigator>
     )
 }
