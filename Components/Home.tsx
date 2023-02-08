@@ -45,7 +45,7 @@ window.server = createServer({
     },
 })
 
-const HomeScreen =({navigation})=>{
+const HomeScreens =({navigation})=>{
     let [users, setUsers] = React.useState([])
     const [items,setItems] = useState([]);
     const [isLoading,setIsLoading] = useState([]);
@@ -67,7 +67,7 @@ const HomeScreen =({navigation})=>{
                 name="add" 
                 size={25} color="#00979C" 
                 style={styles.icon} />
-                <Text style={styles.textaddDevice} onPress={() => navigation.navigate('scanble')}>
+                <Text style={styles.textaddDevice} onPress={() => navigation.navigate('HomeSC')}>
                     เพิ่มอุปกรณ์
                 </Text>
             </View>

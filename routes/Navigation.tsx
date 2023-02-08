@@ -5,7 +5,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import SplashScreen from '../Components/SplashScreen';
-import HomeScreen from '../Components/Home';
 import Login from '../Components/Login';
 import Register from '../Components/Register';
 import Resetpassword from '../Components/Resetpassword';
@@ -20,10 +19,28 @@ import DeviceModal from '../Components/ListBLE';
 import BluetoothComponent from '../Components/work';
 import ListBLE from '../Components/ListBLE';
 import Sighup from '../server/Sighup'
+import { DeviceScreen } from '../M5stickC/Device';
+import { HomeScreen } from '../M5stickC/HomeSC';
 
 
-const Stack = createStackNavigator();
+
+//const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+import { Device } from 'react-native-ble-plx';
+
+export type RootStackParamList = {
+    SplashScreen: undefined;
+    BottomTabNavScreenGroup: undefined;
+    forgetpassword: undefined;
+    Register: undefined;
+    register: undefined;
+    editprofile: undefined;
+    privacy: undefined;
+    HomeSC: undefined;
+    Device: { device: Device };
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 
 const BottomTabNavScreenGroup =()=>{
@@ -93,7 +110,7 @@ const BottomTabNavScreenGroup =()=>{
 
 const MainStackScreen =()=>{
     return(
-        <Stack.Navigator>
+        <Stack.Navigator mode="card" >
             <Stack.Screen
                 options={{
                     headerShown: false,
@@ -121,13 +138,14 @@ const MainStackScreen =()=>{
                 }}
                 name="register"
                 component={Register}
-            /><Stack.Screen
-            options={{
-                headerShown: false,
-            }}
-            name="Register"
-            component={Sighup}
-        />
+            />
+            <Stack.Screen
+                options={{
+                    headerShown: false,
+                }}
+                name="Register"
+                component={Sighup}
+            />
             <Stack.Screen
                 options={{
                     headerShown: false,
@@ -146,22 +164,15 @@ const MainStackScreen =()=>{
                 options={{
                     headerShown: false,
                 }}
-                name="scanble"
-                component={ScanBluetooth}
+                name="HomeSC"
+                component={HomeScreen}
             />
-            <Stack.Screen
+            <Stack.Screen     
                 options={{
                     headerShown: false,
                 }}
-                name="ble"
-                component={Bluetooth}
-            />
-            <Stack.Screen
-                options={{
-                    headerShown: false,
-                }}
-                name="listble"
-                component={ListBLE}
+                name="Device"
+                component={DeviceScreen}
             />
             
         </Stack.Navigator>

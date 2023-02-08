@@ -1,3 +1,7 @@
 {
-    "java.compile.nullAnalysis.mode": "automatic"
+    "java.compile.nullAnalysis.mode": "automatic",
+    "arduino.path": "/Applications/Arduino IDE.app",
+    "arduino.commandPath": "Contents/MacOS/run-arduino.sh",
+    "arduino.ignoreBoards": [],
+    "C_Cpp.errorSquiggles": "enabled"
 }
