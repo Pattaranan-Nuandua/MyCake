@@ -1,5 +1,7 @@
+//เชื่อมต่อแล้ว โชว์ข้อมูล uuid 
+
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Characteristic, Descriptor, Service } from 'react-native-ble-plx';
 import { CharacteristicCard } from './CharacteristicCard';
 import { DescriptorCard } from './DescriptorCard';
@@ -10,6 +12,7 @@ type ServiceCardProps = {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const UART_SERVICE_UUID = '6E400001-B5A3-F393-­E0A9-­E50E24DCCA9E'.toLowerCase();
+const M5stickC_UUID = 'fe8775b4-243b-4aae-a7b8-c4c3ed0f55e3';
 
 const ServiceCard = ({ service }: ServiceCardProps) => {
     const [descriptors, setDescriptors] = useState<Descriptor[]>([]);
@@ -31,6 +34,19 @@ const ServiceCard = ({ service }: ServiceCardProps) => {
         getCharacteristics();
     }, [service]);
 
+    const Checkdevice = () => {
+        if(M5stickC_UUID === service.uuid ){
+            
+            Alert.alert("Yes!!!");
+            console.log(service.uuid)
+            
+        }else{
+            Alert.alert("No ja!!!");
+            console.log(service.uuid)
+        }
+    };
+
+
     return (
         <View style={styles.container}>
             <TouchableOpacity
@@ -38,8 +54,12 @@ const ServiceCard = ({ service }: ServiceCardProps) => {
                     setAreCharacteristicsVisible((prev) => !prev);
                 }}>
                 <Text>{`UUID : ${service.uuid}`}</Text>
+                <Text onPress={Checkdevice}>kk</Text>
+                
+                
             </TouchableOpacity>
-
+            {/*<checkdevice */}
+            
             {areCharacteristicsVisible &&
                 characteristics &&
                 characteristics.map((char) => (

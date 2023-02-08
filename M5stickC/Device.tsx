@@ -3,7 +3,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Text, ScrollView, Button, View, StyleSheet } from 'react-native';
 import { Service } from 'react-native-ble-plx';
 import { ServiceCard } from './Components/ServiceCard';
-import { RootStackParamList } from './navigation/index';
+//import { RootStackParamList } from './navigation/index';
+import { RootStackParamList } from '../routes/Navigation';
 
 const DeviceScreen = ({
     route,
@@ -56,13 +57,16 @@ const DeviceScreen = ({
                 <View style={styles.header}>
                     <Text>{`Id : ${device.id}`}</Text>
                     <Text>{`Name : ${device.name}`}</Text>
-                    <Text>{`ServiceData : ${device.serviceData}`}</Text>
+                    {/*<Text>{`ServiceData : ${device.serviceData}`}</Text>*/}
                     <Text>{`UUIDS : ${device.serviceUUIDs}`}</Text>
                     <Text>{`Is connected : ${isConnected}`}</Text>
+                    
+
                 </View>
                 {/* Display a list of all services */}
                 {services &&
                     services.map((service) => <ServiceCard service={service} />)}
+                <Text>Hello</Text>
             </View>
         </ScrollView>
     );

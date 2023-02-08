@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
-import {Text,StyleSheet, View,SafeAreaView} from 'react-native';
+import React, { useState } from 'react';
+import { Text, StyleSheet, View, SafeAreaView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createServer } from "miragejs"
 import { Navigation } from 'react-native-navigation';
-import {connect} from './ListBLE';
 import { DEFAULT_SERVICES, device, restoreServices } from 'react-native-bluetooth-serial-next';
 import { Device } from 'react-native-ble-plx';
 interface Users {
@@ -26,112 +25,103 @@ if (window.server) {
 
 window.server = createServer({
     routes() {
-    this.get("http://10.0.2.2:5000/Mycake/login", () => {
-    return {
-        users: [
-        { id: 1, 
-        name: "ฐิตารีย์",
-        surname: "นิโรจน์ศิลปชัย",
-        age: 22,
-        gender: "หญิง",
-        weight: 45,
-        high: 165,
-        step: 542,
-        device: 'M5',
-        status: "Active",}
-        ],
-        }
-    })
+        this.get("./api/users", () => {
+            return {
+                users: [
+                    {
+                        id: 1,
+                        name: "ฐิตารีย์",
+                        surname: "นิโรจน์ศิลปชัย",
+                        age: 22,
+                        gender: "หญิง",
+                        weight: 45,
+                        high: 165,
+                        step: 542,
+                        device: 'M5',
+                        status: "Active",
+                    }
+                ],
+            }
+        })
     },
 })
 
-const HomeScreens =({navigation})=>{
+const Home = ({ navigation }) => {
     let [users, setUsers] = React.useState([])
-    const [items,setItems] = useState([]);
-    const [isLoading,setIsLoading] = useState([]);
 
-    React.useEffect(() => {
-        fetch("http://10.0.2.2:5000/Mycake/login")
-        .then((res) => res.json())
-        .then((result) => 
-            setItems(result),
-            setIsLoading(false),
-        )
-    }, [])
-
-    return(
+    return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.text} >ยินดีต้อนรับ</Text>
             <View>
-                <Icon 
-                name="add" 
-                size={25} color="#00979C" 
-                style={styles.icon} />
+                <Icon
+                    name="add"
+                    size={25} color="#00979C"
+                    style={styles.icon} />
                 <Text style={styles.textaddDevice} onPress={() => navigation.navigate('HomeSC')}>
                     เพิ่มอุปกรณ์
                 </Text>
             </View>
             <View style={styles.box}>
-            <View style={styles.box}>
-                <View>
-                    {users.map((user) => (
-                        <Text key={user.id} style={styles.name}>
-                            คุณ {user.name} {user.surname}
-                        </Text>
-                    ))}
+                <View style={styles.box}>
+                    <View>
+                        {users.map((user) => (
+                            <Text key={user.id} style={styles.name}>
+                                คุณ {user.name} {user.surname}
+                            </Text>
+                        ))}
+                    </View>
+                    <View>
+                        {users.map((user) => (
+                            <Text key={user.id} style={styles.age}>
+                                อายุ: {user.age} ปี   เพศ: {user.gender}
+                            </Text>
+                        ))}
+                    </View>
+                    <View>
+                        {users.map((user) => (
+                            <Text key={user.id} style={styles.weight}>
+                                น้ำหนัก: {user.weight} กิโลกรัม
+                            </Text>
+                        ))}
+                    </View>
+                    <View>
+                        {users.map((user) => (
+                            <Text key={user.id} style={styles.high}>
+                                ส่วนสูง: {user.high} เซนติเมตร
+                            </Text>
+                        ))}
+                    </View>
                 </View>
-                <View>
-                    {users.map((user) => (
-                        <Text key={user.id} style={styles.age}>
-                            อายุ: {user.age} ปี   เพศ: {user.gender} 
-                        </Text>
-                    ))}
-                </View>
-                <View>
-                    {users.map((user) => (
-                        <Text key={user.id} style={styles.weight}>
-                            น้ำหนัก: {user.weight} กิโลกรัม
-                        </Text>
-                    ))}
-                </View>
-                <View>
-                    {users.map((user) => (
-                        <Text key={user.id} style={styles.high}>
-                            ส่วนสูง: {user.high} เซนติเมตร
-                        </Text>
-                    ))}
-                </View>
-            </View>
-            <View style={styles.box3}>
-                <View>
-                    {users.map((user) => (
-                        <Text key={user.id} style={styles.device}>
-                            อุปกรณ์: {user.device}
-                        </Text>
-                    ))}
-                </View>
-                <View>
-                    {users.map((user) => (
-                        <Text key={user.id} style={styles.status}>
-                            สถานะ: {user.status}
-                        </Text>
-                    ))}
-                </View>
-                <View>
+                <View style={styles.box3}>
+                    <View>
+                        {users.map((user) => (
+                            <Text key={user.id} style={styles.device}>
+                                อุปกรณ์: {user.device}
+                            </Text>
+                        ))}
+                    </View>
+                    <View>
+                        {users.map((user) => (
+                            <Text key={user.id} style={styles.status}>
+                                สถานะ: {user.status}
+                            </Text>
+                        ))}
+                    </View>
+                    <View>
                         {users.map((user) => (
                             <Text key={user.id} style={styles.step}>
                                 จำนวนก้าวในการเดิน: {user.step} ก้าว
                             </Text>
                         ))}
+                    </View>
                 </View>
-            </View>
             </View>
         </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
         backgroundColor: "#ffff",
         width: "100%",
@@ -139,86 +129,86 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    text:{
+    text: {
         fontSize: 20,
         color: '#00979C',
         fontWeight: 'bold',
         marginRight: 220,
-        marginTop:-280,
+        marginTop: -280,
     },
-    box:{
-        backgroundColor: '#f0f0f0', 
-        width:320, 
-        height:200, 
-        borderRadius:18,
+    box: {
+        backgroundColor: '#f0f0f0',
+        width: 320,
+        height: 200,
+        borderRadius: 18,
         //marginLeft:45,
-        marginTop:30,
+        marginTop: 30,
     },
-    icon:{
+    icon: {
         //marginBottom: 20,
-        marginTop:-25,
+        marginTop: -25,
         marginLeft: 220
     },
-    textaddDevice:{
+    textaddDevice: {
         fontSize: 15,
         marginTop: -22,
         marginLeft: 245,
         color: '#00979C',
         //fontWeight: 'bold',
     },
-    name:{
+    name: {
         fontSize: 18,
         marginTop: 30,
         marginLeft: 40,
         //fontWeight: 'bold',
     },
-    age:{
+    age: {
         fontSize: 17,
         marginTop: 15,
         marginLeft: 40,
         //fontWeight: 'bold',
     },
-    gender:{
+    gender: {
         fontSize: 17,
         marginTop: -23,
         marginLeft: 150,
         //fontWeight: 'bold',
     },
-    weight:{
+    weight: {
         fontSize: 17,
         marginTop: 15,
         marginLeft: 40,
         //fontWeight: 'bold',
     },
-    high:{
+    high: {
         fontSize: 17,
         marginTop: 15,
         marginLeft: 40,
         //fontWeight: 'bold',
     },
-    box3:{
-        backgroundColor: '#f0f0f0', 
-        width:320, 
-        height:130, 
-        borderRadius:18,
+    box3: {
+        backgroundColor: '#f0f0f0',
+        width: 320,
+        height: 130,
+        borderRadius: 18,
         //marginLeft:45,
-        marginTop:30,
+        marginTop: 30,
     },
-    step:{
+    step: {
         fontSize: 17,
         marginTop: 15,
         marginLeft: 40,
         //textAlign:'center',
         //fontWeight: 'bold',
     },
-    device:{
+    device: {
         fontSize: 17,
         marginTop: 15,
         marginLeft: 40,
         //textAlign:'center',
         //fontWeight: 'bold',
     },
-    status:{
+    status: {
         fontSize: 17,
         marginTop: 15,
         marginLeft: 40,
@@ -226,4 +216,4 @@ const styles = StyleSheet.create({
         //fontWeight: 'bold',
     },
 });
-export default HomeScreen;
+export default Home;

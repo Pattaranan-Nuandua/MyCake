@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import SplashScreen from '../Components/SplashScreen';
+import Home from '../Components/Home';
 import Login from '../Components/Login';
 import Register from '../Components/Register';
 import Resetpassword from '../Components/Resetpassword';
@@ -74,7 +75,7 @@ const BottomTabNavScreenGroup =()=>{
                     headerShown: false,
                 }}
                 name="Home"
-                component={HomeScreen}
+                component={Home}
             />
             <Tab.Screen
                 options={{

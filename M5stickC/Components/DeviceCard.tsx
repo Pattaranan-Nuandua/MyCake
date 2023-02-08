@@ -25,14 +25,15 @@ const DeviceCard = ({ device }: DeviceCardProps) => {
             style={styles.container}
             // navigate to the Device Screen
             onPress={() => navigation.navigate('Device', { device })}>
-            <Text>{`Id : ${device.id}`}</Text>
+            {/*<Text>{`Id : ${device.id}`}</Text>*/}
             <Text>{`Name : ${device.name}`}</Text>
+            <Text>{`UUIDS : ${device.serviceUUIDs}`}</Text>
             <Text>{`Is connected : ${isConnected}`}</Text>
             
             {/* Decode the ble device manufacturer which is encoded with the base64 algorythme */}
             
-            <Text>{`ServiceData : ${device.serviceData}`}</Text>
-            <Text>{`UUIDS : ${device.serviceUUIDs}`}</Text>
+            {/*<Text>{`ServiceData : ${device.serviceData}`}</Text>*/}
+            
         </TouchableOpacity>
     );
 };

@@ -71,7 +71,7 @@ const HomeScreen = () => {
     const ListHeaderComponent = () => (
         <View style={styles.body}>
             <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>ค้นหาอุปกรณ์</Text>
+                <Text style={styles.sectionTitle}>Find Devices</Text>
             </View>
             <View style={styles.sectionContainer}>
                 <Button
@@ -91,7 +91,6 @@ const HomeScreen = () => {
                         <ActivityIndicator color={'teal'} size={25} />
                     </View>
                 ) : (
-                    
                     <Button 
                         title="ค้นหาอุปกรณ์" 
                         style={{
