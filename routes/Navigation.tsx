@@ -14,20 +14,14 @@ import Insole from '../Components/Insole';
 import Settings from '../Components/Settings';
 import Privacy from '../Components/Privacy';
 import EditProfile from '../Components/EditProfile';
-import ScanBluetooth from '../Components/ScanBluetooth';
-import Bluetooth from '../Components/new';
-import DeviceModal from '../Components/ListBLE';
-import BluetoothComponent from '../Components/work';
-import ListBLE from '../Components/ListBLE';
 import Sighup from '../server/Sighup'
 import { DeviceScreen } from '../M5stickC/Device';
 import { HomeScreen } from '../M5stickC/HomeSC';
 
-
-
 //const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 import { Device } from 'react-native-ble-plx';
+import DeviceData from '../M5stickC/Components/Cake';
 
 export type RootStackParamList = {
     SplashScreen: undefined;
@@ -39,6 +33,9 @@ export type RootStackParamList = {
     privacy: undefined;
     HomeSC: undefined;
     Device: { device: Device };
+    mm: undefined;
+    Home:undefined;
+    HomeScreen:undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -172,8 +169,8 @@ const MainStackScreen =()=>{
                 options={{
                     headerShown: false,
                 }}
-                name="Device"
-                component={DeviceScreen}
+                name="DeviceData"
+                component={DeviceData}
             />
             
         </Stack.Navigator>

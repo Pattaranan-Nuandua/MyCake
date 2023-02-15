@@ -5,7 +5,8 @@ import {
     StyleSheet,
     Text,
     View,
-    Dimensions
+    Dimensions,
+    TouchableOpacity
 } from 'react-native';
 import { Button } from '@react-native-material/core';
 import { SafeAreaView } from 'react-native-safe-area-context';

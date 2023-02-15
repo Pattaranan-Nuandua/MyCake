@@ -78,6 +78,8 @@ PODS:
   - glog (0.3.5)
   - hermes-engine (0.70.6)
   - HMSegmentedControl (1.5.6)
+  - iOSDFULibrary (4.11.1):
+    - ZIPFoundation (= 0.9.11)
   - libevent (2.1.12)
   - MultiplatformBleAdapter (0.1.9)
   - OpenSSL-Universal (1.1.1100)
@@ -350,6 +352,9 @@ PODS:
   - react-native-ble-plx (2.0.3):
     - MultiplatformBleAdapter (= 0.1.9)
     - React-Core
+  - react-native-nordic-dfu (3.2.1):
+    - iOSDFULibrary (~> 4.11.1)
+    - React
   - react-native-quick-base64 (2.0.5):
     - React-Core
   - react-native-safe-area-context (4.5.0):
@@ -515,6 +520,7 @@ PODS:
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
+  - ZIPFoundation (0.9.11)
 
 DEPENDENCIES:
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
@@ -585,6 +591,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-ble-manager (from `../node_modules/react-native-ble-manager`)
   - react-native-ble-plx (from `../node_modules/react-native-ble-plx`)
+  - react-native-nordic-dfu (from `../node_modules/react-native-nordic-dfu`)
   - react-native-quick-base64 (from `../node_modules/react-native-quick-base64`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-skia (from `../node_modules/@shopify/react-native-skia`)"
@@ -628,11 +635,13 @@ SPEC REPOS:
     - FlipperKit
     - fmt
     - HMSegmentedControl
+    - iOSDFULibrary
     - libevent
     - MultiplatformBleAdapter
     - OpenSSL-Universal
     - SocketRocket
     - YogaKit
+    - ZIPFoundation
 
 EXTERNAL SOURCES:
   boost:
@@ -721,6 +730,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-ble-manager"
   react-native-ble-plx:
     :path: "../node_modules/react-native-ble-plx"
+  react-native-nordic-dfu:
+    :path: "../node_modules/react-native-nordic-dfu"
   react-native-quick-base64:
     :path: "../node_modules/react-native-quick-base64"
   react-native-safe-area-context:
@@ -797,6 +808,7 @@ SPEC CHECKSUMS:
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   hermes-engine: 2af7b7a59128f250adfd86f15aa1d5a2ecd39995
   HMSegmentedControl: 34c1f54d822d8308e7b24f5d901ec674dfa31352
+  iOSDFULibrary: 3500ac00451aa7d8ec48a752e91099669a2c1d27
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   MultiplatformBleAdapter: 5a6a897b006764392f9cef785e4360f54fb9477d
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
@@ -836,6 +848,7 @@ SPEC CHECKSUMS:
   React-logger: 1623c216abaa88974afce404dc8f479406bbc3a0
   react-native-ble-manager: c5bf39fd1a41b26f7710d5920f0ec7b6f89fbb56
   react-native-ble-plx: f10240444452dfb2d2a13a0e4f58d7783e92d76e
+  react-native-nordic-dfu: 9a4cfa2b940cd12025616feed8271b7c5043113d
   react-native-quick-base64: e657e9197e61b60a9dec49807843052b830da254
   react-native-safe-area-context: 39c2d8be3328df5d437ac1700f4f3a4f75716acc
   react-native-skia: d8d3d07b31c1a488999619eead40fd9cf7eaf83a
@@ -865,6 +878,7 @@ SPEC CHECKSUMS:
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Yoga: 99caf8d5ab45e9d637ee6e0174ec16fbbb01bcfc
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
+  ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
 
 PODFILE CHECKSUM: 119c59882b165d45c8f5985c97218a772dd00fcd
 

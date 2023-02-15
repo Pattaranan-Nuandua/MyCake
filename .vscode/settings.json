@@ -3,5 +3,6 @@
     "arduino.path": "/Applications/Arduino IDE.app",
     "arduino.commandPath": "Contents/MacOS/run-arduino.sh",
     "arduino.ignoreBoards": [],
-    "C_Cpp.errorSquiggles": "enabled"
+    "C_Cpp.errorSquiggles": "enabled",
+    "compile-hero.disable-compile-files-on-did-save-code": true
 }

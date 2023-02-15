@@ -60,8 +60,6 @@ const DeviceScreen = ({
                     {/*<Text>{`ServiceData : ${device.serviceData}`}</Text>*/}
                     <Text>{`UUIDS : ${device.serviceUUIDs}`}</Text>
                     <Text>{`Is connected : ${isConnected}`}</Text>
-                    
-
                 </View>
                 {/* Display a list of all services */}
                 {services &&

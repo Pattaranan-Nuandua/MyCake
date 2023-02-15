@@ -5,6 +5,7 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Device } from 'react-native-ble-plx';
 import { RootStackParamList } from '../navigation';
 import { Base64 } from '../lib/base64';
+import connectAndReadData from './Cake';
 
 type DeviceCardProps = {
     device: Device;
@@ -28,12 +29,11 @@ const DeviceCard = ({ device }: DeviceCardProps) => {
             {/*<Text>{`Id : ${device.id}`}</Text>*/}
             <Text>{`Name : ${device.name}`}</Text>
             <Text>{`UUIDS : ${device.serviceUUIDs}`}</Text>
-            <Text>{`Is connected : ${isConnected}`}</Text>
+            <Text>{`Is connected : ${isConnected}`}</Text>  
             
             {/* Decode the ble device manufacturer which is encoded with the base64 algorythme */}
             
             {/*<Text>{`ServiceData : ${device.serviceData}`}</Text>*/}
-            
         </TouchableOpacity>
     );
 };

@@ -55,9 +55,11 @@ const CharacteristicCard = ({ char }: CharacteristicCardProps) => {
 
     return (
         <TouchableOpacity
+
             key={char.uuid}
             style={styles.container}
             onPress={writeCharacteristic}>
+                
             <Text style={styles.measure}>{measure}</Text>
             <Text style={styles.descriptor}>{descriptor}</Text>
             <Text>{`isIndicatable : ${char.isIndicatable}`}</Text>

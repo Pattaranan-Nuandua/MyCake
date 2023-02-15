@@ -1,3 +1,5 @@
+//อ่านข้อมูลที่อยู่ใน devices
+
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Descriptor } from 'react-native-ble-plx';

@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, StyleSheet, View, SafeAreaView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createServer } from "miragejs"
 import { Navigation } from 'react-native-navigation';
 import { DEFAULT_SERVICES, device, restoreServices } from 'react-native-bluetooth-serial-next';
 import { Device } from 'react-native-ble-plx';
+
 interface Users {
     [key: string]: {
+        id: number;
         name: string;
         surname: string;
         age: number;
@@ -25,8 +27,8 @@ if (window.server) {
 
 window.server = createServer({
     routes() {
-        this.get("./api/users", () => {
-            return {
+        this.get("/api/movies", () => {
+        return {
                 users: [
                     {
                         id: 1,
@@ -47,8 +49,12 @@ window.server = createServer({
 })
 
 const Home = ({ navigation }) => {
-    let [users, setUsers] = React.useState([])
-
+    const [users, setUsers] = useState([""]);
+    React.useEffect(() => {
+        fetch("/api/Users")
+        .then((res) => res.json())
+        .then((json) => setUsers(json.users))
+    }, [])
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.text} >ยินดีต้อนรับ</Text>
@@ -57,7 +63,7 @@ const Home = ({ navigation }) => {
                     name="add"
                     size={25} color="#00979C"
                     style={styles.icon} />
-                <Text style={styles.textaddDevice} onPress={() => navigation.navigate('HomeSC')}>
+                <Text style={styles.textaddDevice} onPress={() => navigation.navigate('DeviceData')}>
                     เพิ่มอุปกรณ์
                 </Text>
             </View>
@@ -69,6 +75,7 @@ const Home = ({ navigation }) => {
                                 คุณ {user.name} {user.surname}
                             </Text>
                         ))}
+
                     </View>
                     <View>
                         {users.map((user) => (
@@ -127,14 +134,15 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
         alignItems: 'center',
-        justifyContent: 'center',
+        //marginTop:100,
     },
     text: {
         fontSize: 20,
         color: '#00979C',
         fontWeight: 'bold',
-        marginRight: 220,
-        marginTop: -280,
+        marginRight: 100,
+        marginLeft: -100,
+        marginTop:40,
     },
     box: {
         backgroundColor: '#f0f0f0',
