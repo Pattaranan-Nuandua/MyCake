@@ -8,7 +8,10 @@ import CheckBox from '@react-native-community/checkbox';
 
 const bleManager = new BleManager();
 const SERVICE_UUID = "fe8775b4-243b-4aae-a7b8-c4c3ed0f55e3"; //use
-const CHARACTERISTIC_UUID = "34e6274d-6f78-45db-8620-27c547d6ac47"; //use
+const CHARACTERISTIC_BLE = "ae41c84a-2fc1-4b66-8531-02e76eb67315"; //use
+//const CHARACTERISTIC_ADC12 = "33ee86c5-3737-45ae-a457-9010d0781975" //use
+//const CHARACTERISTIC_ADC13 = "a118e86a-703e-4f5d-b421-316882db5353" //use
+//const CHARACTERISTIC_ADC14 = "b4e01f10-718d-4488-8a49-f12ca6a37028" //use
 const CHARACTERISTIC_UUID_RX = "746d8ce0-87a5-4810-9d67-c47fd233304e"; //read
 const BOX_UUID = "673edd34-caf8-41f6-8605-715a69b2a943"; //nah
 
@@ -17,18 +20,18 @@ const DeviceData = () => {
     const [deviceId, setDeviceId] = useState(null);
     const [scanning, setScanning] = useState(false);
     const [message, setMessage] = useState();
-    const [ADS1, setADS1] = useState();
-    const [ADS2, setADS2] = useState();
-    const [ADS3, setADS3] = useState();
-    const [ADS4, setADS4] = useState();
-    const [ADS5, setADS5] = useState();
-    const [ADS6, setADS6] = useState();
-    const [ADS7, setADS7] = useState();
-    const [ADS8, setADS8] = useState();
-    const [ADS9, setADS9] = useState();
-    const [ADS10, setADS10] = useState();
-    const [ADS11, setADS11] = useState();
-    const [ADS12, setADS12] = useState();
+    const [ADC11, setADC11] = useState<object>([]);
+    const [ADC12, setADC12] = useState();
+    const [ADC13, setADC13] = useState<object>([]);
+    const [ADC14, setADC14] = useState();
+    const [ADC21, setADC21] = useState();
+    const [ADC22, setADC22] = useState();
+    const [ADC23, setADC23] = useState();
+    const [ADC24, setADC24] = useState();
+    const [ADC31, setADC31] = useState();
+    const [ADC32, setADC32] = useState();
+    const [ADC33, setADC33] = useState();
+    const [ADC34, setADC34] = useState();
     const [connectedDevice, setConnectedDevice] = useState<Device>();
     const [isConnected, setIsConnected] = useState(false);
 
@@ -61,40 +64,29 @@ const DeviceData = () => {
                     console.log('Disconnect')
                     setIsConnected(false);
                 });
-
                 // READ MESSAGE
-                device
-                    .readCharacteristicForService(SERVICE_UUID, CHARACTERISTIC_UUID)
+                device.readCharacteristicForService(SERVICE_UUID, CHARACTERISTIC_BLE)
                     .then(valenc => {
-                        console.log('Message received:', base64.decode(valenc?.value));
-                       //console.log('Message received:', base64.decode(valenc?.value));
-                        //setMessage(base64.decode(characteristic.value));
-                        setMessage(base64.decode(valenc?.value));
-                        //setADS1(base64.decode(valenc?.value));
-                        //setADS2(base64.decode(valenc?.value));
-                });
-                device.monitorCharacteristicForService(
-                    SERVICE_UUID,
-                    CHARACTERISTIC_UUID,
+                        console.log('Received:', base64.decode(valenc?.value));
+                        setADC11(base64.decode(valenc?.value));
+                    });
+                ////////Monitor///////
+                device.monitorCharacteristicForService(SERVICE_UUID, CHARACTERISTIC_BLE,
                     (error, characteristic) => {
                         if (characteristic?.value != null) {
-                            setMessage(base64.decode(characteristic?.value));
-                            //setADS1(base64.decode(valenc?.value));
-                            //setADS2(base64.decode(valenc?.value));
+                            setADC11(base64.decode(characteristic?.value));
                             console.log(
-                                'Message update received: ',
-                                base64.decode(characteristic?.value),
+                                'Update Received: ', base64.decode(characteristic?.value),
                             );
                         }
                     },
                     'messagetransaction',
                 );
-                console.log('Connection established');
+                //console.log('Connection established');
             });
     }
     async function disconnectDevice() {
         console.log('Disconnecting start');
-
         if (connectedDevice != null) {
             const isDeviceConnected = await connectedDevice.isConnected();
             if (isDeviceConnected) {
@@ -135,7 +127,9 @@ const DeviceData = () => {
                 </TouchableOpacity>
             </View>
             <View>
-                <Text>Data: {message}</Text>
+                <Text style={{ marginTop: 30 }}>Device:</Text>
+                <Text>BLE: {ADC11}</Text>
+
             </View>
         </View>
     )

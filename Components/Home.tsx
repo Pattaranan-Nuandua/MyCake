@@ -27,11 +27,11 @@ if (window.server) {
 
 window.server = createServer({
     routes() {
-        this.get("/api/movies", () => {
+        this.get("/api/Users", () => {
         return {
                 users: [
                     {
-                        id: 1,
+                        id: 0,
                         name: "ฐิตารีย์",
                         surname: "นิโรจน์ศิลปชัย",
                         age: 22,
@@ -63,7 +63,7 @@ const Home = ({ navigation }) => {
                     name="add"
                     size={25} color="#00979C"
                     style={styles.icon} />
-                <Text style={styles.textaddDevice} onPress={() => navigation.navigate('DeviceData')}>
+                <Text style={styles.textaddDevice} onPress={() => navigation.navigate('devicedata')}>
                     เพิ่มอุปกรณ์
                 </Text>
             </View>
@@ -75,7 +75,6 @@ const Home = ({ navigation }) => {
                                 คุณ {user.name} {user.surname}
                             </Text>
                         ))}
-
                     </View>
                     <View>
                         {users.map((user) => (

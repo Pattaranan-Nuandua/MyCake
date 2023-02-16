@@ -36,6 +36,7 @@ export type RootStackParamList = {
     mm: undefined;
     Home:undefined;
     HomeScreen:undefined;
+    devicedata:undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -108,7 +109,8 @@ const BottomTabNavScreenGroup =()=>{
 
 const MainStackScreen =()=>{
     return(
-        <Stack.Navigator mode="card" >
+        //mode="card"
+        <Stack.Navigator >
             <Stack.Screen
                 options={{
                     headerShown: false,
@@ -169,7 +171,7 @@ const MainStackScreen =()=>{
                 options={{
                     headerShown: false,
                 }}
-                name="DeviceData"
+                name="devicedata"
                 component={DeviceData}
             />
             
