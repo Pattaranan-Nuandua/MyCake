@@ -108,7 +108,6 @@ const HomeScreen = () => {
             </View>
         </View>
     );
-
     useEffect(() => {
         return () => {
             manager.destroy();
