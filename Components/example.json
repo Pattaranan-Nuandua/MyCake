@@ -1,0 +1,56 @@
+{	"Activity":
+	[
+{
+    "Week": "1",
+      "answer": [
+        { "choice": "Methocarbamol" },
+        { "choice": "Cyclobenzaprine" },
+        { "choice": "Carisoprodol" },
+        { "choice": "Metaxalone" }
+      ]
+
+},
+{
+    "Week": "2",
+      "answer": [
+        { "choice": "tv" },
+        { "choice": "reading" },
+        { "choice": "games" }
+      ]
+
+},
+{
+    "Week": "3",
+      "answer": [
+        { "choice": "Ankle sprain" },
+        { "choice": "Knee sprain" },
+        { "choice": "Muscle or joint sprain" }
+      ]
+
+},
+{
+    "Week": "4",
+      "answer": [
+        { "choice": "Rock" },
+        { "choice": "Musical theatre" },
+        { "choice": "Hip hop music" },
+        { "choice": "Dance music" },
+        { "choice": "Jazz" },
+        { "choice": "Popular Music" }
+      ]
+
+},
+{
+    "week": "",
+      "answer": [
+        { "choice": "Swedish Massage Therapy" },
+        { "choice": "Aromatherapy Massage" },
+        { "choice": "Hot Stone Massage" },
+        { "choice": "Deep Tissue Massage" },
+        { "choice": "Shiatsu Massage" },
+        { "choice": "Thai Massage" }  
+      ]
+
+}
+]
+}

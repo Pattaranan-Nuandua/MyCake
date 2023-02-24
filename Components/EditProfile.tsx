@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SafeAreaView,Text,StyleSheet,TextInput } from 'react-native';
+import { SafeAreaView,Text,StyleSheet,TextInput,TouchableOpacity } from 'react-native';
 import { Button} from '@react-native-material/core';
 import Settings from './Settings';
 
@@ -60,13 +60,13 @@ const EditProfile = ({navigation})=>{
                 onChangeText={onChangeText6}
                 value={text6}
             />
-            <Button 
-                title="ยืนยัน" 
-                color="#00979C" 
-                tintColor="white" 
-                style={styles.button1}
-                onPress={() => navigation.navigate('Settings')}
-                />
+            <TouchableOpacity  
+                style={styles.button1} 
+                onPress={() => navigation.navigate('Settings')}>
+                <Text style={{color:'#fff',alignSelf:'center'}}>
+                    ยืนยัน
+                </Text>
+            </TouchableOpacity>
         </SafeAreaView>
     )
 }
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#ffff",
         width: "100%",
         height: "100%",
-        //alignItems: 'center',
+        //alignSelf: 'center',
         //justifyContent: 'center',
     },
     checkboxContainer: {
@@ -93,9 +93,10 @@ const styles = StyleSheet.create({
         //marginTop:-30
     },
     textusername:{
-        marginTop: 30,
-        marginLeft: 50,
-        color:'#999999'
+        marginTop: 50,
+        marginLeft: 70,
+        color:'#999999',
+        
     },
     input: {
         height: 40,
@@ -106,14 +107,15 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: '#fff',
         backgroundColor:'#f0f0f0',
-        marginLeft:50,
+        //marginLeft:50,
+        alignSelf:'center'
     },
     text:{
-        marginLeft: 50,
+        marginLeft: 70,
         color:'#999999'
     },
     text2:{
-        marginLeft:216,
+        marginLeft:236,
         marginTop:-80,
         color:'#999999'
     },
@@ -123,10 +125,12 @@ const styles = StyleSheet.create({
         color:'#999999'
     },
     button1:{
-        alignItems: 'center',
-        marginTop:30,
-        marginLeft:140,
+        marginTop:50,
+        padding: 10,
         width:105,
+        backgroundColor: '#00979C',
+        alignSelf: 'center',
+        borderRadius:5,
     },
     input2:{
         height: 40,
@@ -137,7 +141,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: '#fff',
         backgroundColor:'#f0f0f0',
-        marginLeft:50,
+        marginLeft:60,
     },
     input3:{
         height: 40,
@@ -148,7 +152,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: '#fff',
         backgroundColor:'#f0f0f0',
-        marginLeft:216,
+        marginLeft:226,
         marginTop:10,
     },
     input4:{
@@ -162,10 +166,6 @@ const styles = StyleSheet.create({
         backgroundColor:'#f0f0f0',
         marginLeft:50,
         marginTop:2,
-    },
-    button2:{
-        marginRight:270,
-        color: '#000000'
     },
 })
 export default EditProfile;

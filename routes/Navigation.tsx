@@ -7,21 +7,19 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import SplashScreen from '../Components/SplashScreen';
 import Home from '../Components/Home';
 import Login from '../Components/Login';
-import Register from '../Components/Register';
 import Resetpassword from '../Components/Resetpassword';
 import Active from '../Components/Active';
 import Insole from '../Components/Insole';
 import Settings from '../Components/Settings';
 import Privacy from '../Components/Privacy';
 import EditProfile from '../Components/EditProfile';
-import Sighup from '../server/Sighup'
-import { DeviceScreen } from '../M5stickC/Device';
+import Sighup from '../Components/Sighup'
 import { HomeScreen } from '../M5stickC/HomeSC';
 
 //const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 import { Device } from 'react-native-ble-plx';
-import DeviceData from '../M5stickC/Components/Cake';
+import DeviceData from '../Components/Cake';
 
 export type RootStackParamList = {
     SplashScreen: undefined;
@@ -40,7 +38,6 @@ export type RootStackParamList = {
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
-
 
 const BottomTabNavScreenGroup =()=>{
     return(
@@ -131,13 +128,6 @@ const MainStackScreen =()=>{
                 }}
                 name="forgetpassword"
                 component={Resetpassword}
-            />
-            <Stack.Screen
-                options={{
-                    headerShown: false,
-                }}
-                name="register"
-                component={Register}
             />
             <Stack.Screen
                 options={{

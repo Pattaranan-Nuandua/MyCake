@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, TextInput, View, Text, Image, Alert, TouchableOpacity, StatusBar, Keyboard, Dimensions } from "react-native";
+import React, { Component, useState, useEffect } from 'react';
+import { StyleSheet, TextInput, View, Text, Image, Alert, TouchableOpacity, Dimensions } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage';
 import LinearGradient from 'react-native-linear-gradient';
 import { Button } from '@react-native-material/core';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
@@ -9,133 +10,108 @@ import Register from './Register';
 import Resetpassword from './Resetpassword';
 import { Navigation } from 'react-native-navigation';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
+//import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const logo = Image.resolveAssetSource(logofoot).uri;
-export default class Login extends Component {
+const Login = ({ navigation }) => {
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
 
-    handleRegister = () => {
-        const { navigation } = this.props;
-        navigation.navigate('Register');
-    };
-    handleForgetPassword = () => {
-        const { navigation } = this.props;
-        navigation.navigate('forgetpassword');
-    };
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: '',
-            password: '',
-        };
-    }
-    login = () => {
-        const { username, password } = this.state;
-        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        if (username == '') {
-            //alert("Please enter Email address");
-            this.setState({ username: 'Please enter username' });
-        } else if (reg.test(username) === false) {
-            //alert("Email is Not Correct");
-            this.setState({ username: 'username is Not Correct' });
-            return false;
-        } else if (password == '') {
-            this.setState({ username: 'Please enter password' });
-        } else {
-            fetch('http://10.0.2.2:3000/api/login.php', {
-                method: 'post',
+    const handleLogin = async () => {
+        if (
+            username.length === 0 ||
+            password.length === 0 
+        ) {
+            Alert.alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+        }else {
+            const response = await fetch('http://10.64.67.61:3001/login', {
+                method: 'POST',
                 headers: {
-                    Accept: 'application/json',
                     'Content-type': 'application/json',
                 },
                 body: JSON.stringify({
-                    // we will pass our input data to server
                     username: username,
                     password: password,
                 }),
             })
-                .then((response) => response.json())
-                .then((responseJson) => {
-                    if (responseJson == 'ok') {
-                        // redirect to profile page
-                        Alert.alert('Successfully Login');
-                        this.props.navigation.navigate('Home');
-                    } else {
-                        Alert.alert('Wrong Login Details');
-                    }
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+            const data = await response.json()
+            if (data.status === 'ok') {
+                //await AsyncStorage.setItem("@usertoken", JSON.stringify(data));
+                
+                await AsyncStorage.setItem('@accessToken', data)
+                const indextoken = await AsyncStorage.getItem("@accessToken")
+                //const indextoken = JSON.parse(indextoken);
+                console.log(indextoken)
+                Alert.alert('เข้าสู่ระบบสำเร็จ');
+                //'Successfully Login'
+                navigation.navigate('Home');
+            } else {
+                Alert.alert(data.status, data.message)
+            }
         }
-        Keyboard.dismiss();
-    };
-    render() {
-        return (
-            <View>
-                <LinearGradient
-                    colors={['#00979C', 'white']}
-                    style={styles.container}
-                >
-                    <Text style={styles.textwelcome}>ยินดีต้อนรับเข้าสู่ระบบ</Text>
-                    <Image source={{ uri: logo }}
-                        style={styles.image} />
-                    <Text style={styles.textuse}>Username</Text>
-                    <TextInput
-                        style={styles.input}
-                        //onChangeText={(e) => setUsername(e)}
-                        //value={Username}
-                        onChangeText={(username) => this.setState({ username })}
-                        placeholder="Username"
-                    />
-                    <Text style={styles.textpass}>Password</Text>
-                    <TextInput
-                        style={styles.input}
-                        //onChangeText={(e) => setPassword(e)}
-                        //value={Password}
-                        onChangeText={(Password) => this.setState({ Password })}
-                        placeholder="Password"
-                        secureTextEntry={true}
-                    />
-                    <TouchableOpacity  onPress={this.handleRegister} >
-                    <Text style={styles.textregistor}>ลงทะเบียน</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity  onPress={this.handleForgetPassword}>
-                    <Text style={styles.textforget}>ลืมรหัสผ่าน ?</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={this.login}
-                        style={{
-                            width: 150,
-                            padding: 10,
-                            backgroundColor: '#037A7E',
-                            alignSelf: 'center',
-                            borderRadius: 10,
-                            marginTop: 30,
-                        }}>
-                        <Text style={{ color: 'white', alignSelf: 'center', }}>Login</Text>
-                    </TouchableOpacity>
-                </LinearGradient>
-            </View>
-        )
     }
+
+    return (
+        <View>
+            <LinearGradient
+                colors={['#00979C', 'white']}
+                style={styles.container}
+            >
+                <Text style={styles.textwelcome}>ยินดีต้อนรับเข้าสู่ระบบ</Text>
+                <Image source={{ uri: logo }}
+                    style={styles.image} />
+                <Text style={styles.textuse}>Username</Text>
+                <TextInput
+                    style={styles.input}
+                    //onChangeText={(e) => setUsername(e)}
+                    value={username}
+                    onChangeText={text => setUsername(text)}
+                    placeholder="Username"
+                />
+                <Text style={styles.textpass}>Password</Text>
+                <TextInput
+                    style={styles.input}
+                    //onChangeText={(e) => setPassword(e)}
+                    value={password}
+                    onChangeText={text => setPassword(text)}
+                    placeholder="Password"
+                    secureTextEntry={true}
+                />
+                <TouchableOpacity onPress={() => navigation.navigate('Register')} >
+                    <Text style={styles.textregistor}>ลงทะเบียน</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('forgetpassword')}>
+                    <Text style={styles.textforget}>ลืมรหัสผ่าน ?</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={handleLogin}
+                    style={{
+                        width: 150,
+                        padding: 10,
+                        backgroundColor: '#037A7E',
+                        alignSelf: 'center',
+                        borderRadius: 10,
+                        marginTop: 30,
+                    }}>
+                    <Text style={{ color: 'white', alignSelf: 'center', }}>Login</Text>
+                </TouchableOpacity>
+            </LinearGradient>
+        </View>
+    );
+
 }
 
 const styles = StyleSheet.create({
     container: {
         width: Dimensions.get('screen').width,
         height: Dimensions.get('screen').height,
-        // width: "100%",
-        //height: "100%",
-        // alignItems: 'center',
-        //justifyContent: 'center',
     },
     image: {
         marginTop: 120,
         marginBottom: 90,
-        marginLeft: 160,
         width: 100,
         height: 120,
+        alignSelf: 'center'
     },
     textwelcome: {
         marginLeft: 30,
@@ -163,7 +139,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: '#fff',
         backgroundColor: '#fff',
-        marginLeft: 50,
+        //marginLeft: 50,
+        alignSelf: 'center'
     },
     button1: {
         alignItems: 'center',
@@ -186,7 +163,6 @@ const styles = StyleSheet.create({
         marginLeft: 140,
         width: 105,
 
-        //marginTop:510,
-        //widht: 'auto'
     }
 })
+export default Login;

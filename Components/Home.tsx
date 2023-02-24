@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Text, StyleSheet, View, SafeAreaView } from 'react-native';
+import { Text, StyleSheet, View, SafeAreaView, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { createServer } from "miragejs"
 import { Navigation } from 'react-native-navigation';
 import { DEFAULT_SERVICES, device, restoreServices } from 'react-native-bluetooth-serial-next';
 import { Device } from 'react-native-ble-plx';
+import AsyncStorage from '@react-native-community/async-storage';
 
-interface Users {
+/*interface Users {
     [key: string]: {
         id: number;
         name: string;
@@ -19,42 +19,29 @@ interface Users {
         device: string;
         status: string;
     };
-};
-
-if (window.server) {
-    server.shutdown()
-}
-
-window.server = createServer({
-    routes() {
-        this.get("/api/Users", () => {
-        return {
-                users: [
-                    {
-                        id: 0,
-                        name: "ฐิตารีย์",
-                        surname: "นิโรจน์ศิลปชัย",
-                        age: 22,
-                        gender: "หญิง",
-                        weight: 45,
-                        high: 165,
-                        step: 542,
-                        device: 'M5',
-                        status: "Active",
-                    }
-                ],
-            }
-        })
-    },
-})
+};*/
 
 const Home = ({ navigation }) => {
-    const [users, setUsers] = useState([""]);
-    React.useEffect(() => {
-        fetch("/api/Users")
-        .then((res) => res.json())
-        .then((json) => setUsers(json.users))
-    }, [])
+    //const [user ,setUser] = useState({})
+   const [user, setUser] = useState({ username: '', email: '', id: null, name: '', surname: '', age: null, gender: '', weight: null, high: null, step: null, device: '', status: '' });
+    const [isloading, setLoading] = useState(true);
+    const fetchUser = async () => {
+        const indextoken = await AsyncStorage.getItem('@accessToken')
+        const response = await fetch('http://10.64.70.214:3001/api/userselect/:id'+ user.id, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer' + indextoken,
+            },
+        })
+        const data = await response.json();
+        console.log(data);
+        setUser(data.user);
+        setLoading(false);
+    }
+    useEffect(() => {
+        fetchUser()
+    }, [isloading])
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.text} >ยินดีต้อนรับ</Text>
@@ -69,57 +56,12 @@ const Home = ({ navigation }) => {
             </View>
             <View style={styles.box}>
                 <View style={styles.box}>
-                    <View>
-                        {users.map((user) => (
-                            <Text key={user.id} style={styles.name}>
-                                คุณ {user.name} {user.surname}
-                            </Text>
-                        ))}
-                    </View>
-                    <View>
-                        {users.map((user) => (
-                            <Text key={user.id} style={styles.age}>
-                                อายุ: {user.age} ปี   เพศ: {user.gender}
-                            </Text>
-                        ))}
-                    </View>
-                    <View>
-                        {users.map((user) => (
-                            <Text key={user.id} style={styles.weight}>
-                                น้ำหนัก: {user.weight} กิโลกรัม
-                            </Text>
-                        ))}
-                    </View>
-                    <View>
-                        {users.map((user) => (
-                            <Text key={user.id} style={styles.high}>
-                                ส่วนสูง: {user.high} เซนติเมตร
-                            </Text>
-                        ))}
-                    </View>
-                </View>
-                <View style={styles.box3}>
-                    <View>
-                        {users.map((user) => (
-                            <Text key={user.id} style={styles.device}>
-                                อุปกรณ์: {user.device}
-                            </Text>
-                        ))}
-                    </View>
-                    <View>
-                        {users.map((user) => (
-                            <Text key={user.id} style={styles.status}>
-                                สถานะ: {user.status}
-                            </Text>
-                        ))}
-                    </View>
-                    <View>
-                        {users.map((user) => (
-                            <Text key={user.id} style={styles.step}>
-                                จำนวนก้าวในการเดิน: {user.step} ก้าว
-                            </Text>
-                        ))}
-                    </View>
+                    {isloading ?
+                        <Text>Loading...</Text>
+                        :
+                        <View>
+                        </View>
+                    }
                 </View>
             </View>
         </SafeAreaView>
@@ -128,10 +70,12 @@ const Home = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
+        width: Dimensions.get('screen').width,
+        height: Dimensions.get('screen').height,
         flex: 1,
         backgroundColor: "#ffff",
-        width: "100%",
-        height: "100%",
+        //width: "100%",
+        //height: "100%",
         alignItems: 'center',
         //marginTop:100,
     },
@@ -141,7 +85,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginRight: 100,
         marginLeft: -100,
-        marginTop:40,
+        marginTop: 40,
     },
     box: {
         backgroundColor: '#f0f0f0',

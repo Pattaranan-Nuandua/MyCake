@@ -1,85 +1,67 @@
 import React, { useState } from 'react';
-import { Image, View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { Image, View, StyleSheet, SafeAreaView, ScrollView, Dimensions } from 'react-native';
 import { Text } from 'react-native-elements';
 import footpic from '../Image/footpic.png';
 import { BleManager, Device } from 'react-native-ble-plx';
 import { Button } from '@react-native-material/core';
 import base64 from 'react-native-base64';
+import { LineChart } from 'react-native-chart-kit';
+import { useRoute } from '@react-navigation/native';
 
 const logofoot = Image.resolveAssetSource(footpic).uri;
 const bleManager = new BleManager();
 const SERVICE_UUID = "fe8775b4-243b-4aae-a7b8-c4c3ed0f55e3"; //use
 const CHARACTERISTIC_BLE = "ae41c84a-2fc1-4b66-8531-02e76eb67315"; //use
 
-const Insole = () => {
-    const [Data, setData] = useState({});
-    const [connectedDevice, setConnectedDevice] = useState<Device>();
-    const [isConnected, setIsConnected] = useState(false);
-
-    async function handleConnect(device: Device) {
-        console.log('connecting to Device:', device.name);
-        device
-            .connect()
-            .then(device => {
-                setConnectedDevice(device);
-                setIsConnected(true);
-                return device.discoverAllServicesAndCharacteristics();
-            })
-            .then(device => {
-                bleManager.onDeviceDisconnected(device.id, (error, device) => {
-                    console.log('Disconnect')
-                    setIsConnected(false);
-                });
-                // READ MESSAGE
-                device.readCharacteristicForService(SERVICE_UUID, CHARACTERISTIC_BLE)
-                    .then(valenc => {
-                        console.log('Received:', base64.decode(valenc?.value));
-                        setData(base64.decode(valenc?.value));
-                    });
-                ////////Monitor///////
-                device.monitorCharacteristicForService(SERVICE_UUID, CHARACTERISTIC_BLE,
-                    (error, characteristic) => {
-                        if (characteristic?.value != null) {
-                            /*    setData(base64.decode(characteristic?.value));
-                                console.log('Update Received: ', base64.decode(characteristic?.value),);*/
-                            const valueString = characteristic?.value.toString();
-                            setData(JSON.parse(base64.decode(valueString)));
-                        }
-                    },
-                    'messagetransaction',
-                );
-                //console.log('Connection established');
-            });
-    }
-
+const MyLineChart = () => {
     return (
-        <ScrollView>
-            <Image source={{ uri: logofoot }} style={styles.image} />
-            {!isConnected ? (
-                <View>
-                    <Text>ADC11: {Data.ADC11}</Text>
-                    <Text>ADC12: {Data.ADC12}</Text>
-                    <Text>ADC13: {Data.ADC13}</Text>
-                    <Text>ADC14: {Data.ADC14}</Text>
-                    <Text>ADC21: {Data.ADC21}</Text>
-                    <Text>ADC22: {Data.ADC22}</Text>
-                    <Text>ADC23: {Data.ADC23}</Text>
-                    <Text>ADC24: {Data.ADC24}</Text>
-                    <Text>ADC31: {Data.ADC31}</Text>
-                    <Text>ADC32: {Data.ADC32}</Text>
-                    <Text>ADC33: {Data.ADC33}</Text>
-                    <Text>ADC34: {Data.ADC34}</Text>
-                </View>
-            ) : (console.log("error"))}
-        </ScrollView>
-    )}
+        <>
+            <Text style={{}}>Line Chart</Text>
+            <LineChart
+                data={{
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                    datasets: [
+                        {
+                            data: [20, 45, 28, 80, 99, 43],
+                            strokeWidth: 2,
+                        },
+                    ],
+                }}
+                width={Dimensions.get('window').width - 16}
+                height={220}
+                chartConfig={{
+                    backgroundColor: '#1cc910',
+                    backgroundGradientFrom: '#eff3ff',
+                    backgroundGradientTo: '#efefef',
+                    decimalPlaces: 2,
+                    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                    style: {
+                        borderRadius: 16,
+                    },
+                }}
+                style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                }}
+            />
+        </>
+    );
+};
 
+const Insole = () => {
+    const route = useRoute();
+    return (
+        <>
+            <MyLineChart />
+            <Text>{JSON.stringify(route.params)}</Text>
+        </>
+    )
+};
 const styles = StyleSheet.create({
-    image:{
-        marginTop:50,
-        width:300,
-        height:900
-        
+    image: {
+        marginTop: 50,
+        width: 300,
+        height: 900
     }
 })
 

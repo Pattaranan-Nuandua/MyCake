@@ -10,7 +10,7 @@ interface Props {
 const SplashScreen = ({navigation}: Props) => {
   setTimeout(() => {
     navigation.dispatch(StackActions.replace('BottomTabNavScreenGroup'));
-  }, 4000);
+  }, 2000);
     const logo = Image.resolveAssetSource(logofoot).uri;
     return(
     <SafeAreaView style = {styles.container}>
