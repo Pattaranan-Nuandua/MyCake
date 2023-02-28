@@ -8,9 +8,6 @@ import { Button } from '@react-native-material/core';
 import { Navigation } from 'react-native-navigation';
 import Privacy from './Privacy';
 
-//import { Server } from 'miragejs';
-
-
 const Register = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
@@ -23,24 +20,6 @@ const Register = ({ navigation }) => {
     const [gender, setGender] = useState('');
     const [details, setDetails] = useState('');
     const [ToggleCheckBox, setToggleCheckBox] = useState(false);
-    /*const handleToggleChange = (event) => {
-        this.setState({ ToggleCheckBox: event.target.checked });
-    };*/
-    //const handlePress = (navigation) => {
-    //return () => navigation.navigate('privacy');
-    //onPress={() => navigation.navigate('Home')} 
-    //};
-    /*new Server({
-        routes() {
-            this.post('/api/add', (schema, request) => {
-                const users = JSON.parse(request.requestBody);
-                // do something with the user data, e.g. save to database
-                return { message: 'User added successfully' };
-            });
-        },
-    });*/
-
-
     const handleToggleChange = () => {
         setToggleCheckBox(!ToggleCheckBox);
     };
@@ -61,7 +40,7 @@ const Register = ({ navigation }) => {
         } else if (!ToggleCheckBox) {
             Alert.alert('กรุณายอมรับเงื่อนไขและข้อตกลง');
         } else {
-            const response = await fetch('http://10.64.67.61:3001/add', {
+            const response = await fetch('http://10.64.58.94:3001/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -88,32 +67,6 @@ const Register = ({ navigation }) => {
             }
         }
     };
-
-    /*return fetch('http://10.64.102.195:3001/api/add')
-        .then(function (response) {
-            return response.json();
-        })
-        .then((response) => {
-            Alert.alert(response[0].Message);
-        })
-        .catch(function (error) {
-            console.log(error.message);
-        })
-    
-    /*fetch(URL, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(Data),
-    })
-        .then((response) => response.json())
-        .then((response) => {
-            Alert.alert(response[0].Message);
-        })
-        .catch((error) => {
-            Alert.alert('Error' + error);
-        });
-        */
-    //}
 
     return (
         <SafeAreaView style={styles.container}>

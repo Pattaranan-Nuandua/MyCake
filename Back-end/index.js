@@ -20,40 +20,27 @@ app.get("/", (req, res) => {
     db.query("SELECT * FROM users", (err, result) => {
         if (err) {
             console.log(err);
-            res.status(500).json({ error: "Error fetching users" });
+            res.status(500).json({ err: "Error fetching users" });
         } else {
         res.send(result);
         }
     });
 });
-/*app.get("/api/userselect", (req, res) => {
-    const username = req.query
-    console.log(username)
-    db.query("SELECT * FROM users WHERE username = ?",[username], (err, result) => {
-        if (err) {
-            console.log(err);
-            res.status(500).json({ error: "Error fetching users" });
-        } else {
-        res.send(result);
-        }
-    });
-});*/
 
+//use
 app.get("/api/userselect/:id", (req, res) => {
     const id = req.params.id;
     db.query("SELECT * FROM users WHERE id = ?", [id], (err, result) => {
         if (err) {
-        console.error(err);
-        res.status(500).json({ error: "Error fetching user" });
+            console.error(err);
+            res.status(500).json({ error: "Error fetching user" });
         } else if (result.length == 0) {
-        res.status(404).json({ error: "User not found" });
+            res.status(404).json({ error: "User not found" });
         } else {
-        res.send(result[0]);
+            res.json(result[0]);
         }
     });
 });
-
-
 
 
 app.post("/add",(req,res) => {
@@ -65,9 +52,34 @@ app.post("/add",(req,res) => {
         }else if(result.lenght > 0){
             res.json({status: 'ok'})
         }else {
-            res.json({status: 'error'})
+            res.json({status: 'err'})
         }
             
+    })
+})
+app.get("/add/index/show",(req, res) => {
+    db.query('SELECT * FROM index_data',(err,result) => {
+        if(err){
+            console.log(err)
+        }else{
+            console.log('Showdata')
+            res.send(result);
+        }
+    })
+})
+//ADC11,ADC12,ADC13,ADC14,ADC21,ADC22,ADC23,ADC24,ADC31,ADC32,ADC33,ADC34
+app.post("/add/index",(req,res) => {
+    const {ADC11,ADC12,ADC13,ADC14,ADC21,ADC22,ADC23,ADC24,ADC31,ADC32,ADC33,ADC34 } = req.body
+    db.query('INSERT INTO index_data (ADC11,ADC12,ADC13,ADC14,ADC21,ADC22,ADC23,ADC24,ADC31,ADC32,ADC33,ADC34) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',[ADC11,ADC12,ADC13,ADC14,ADC21,ADC22,ADC23,ADC24,ADC31,ADC32,ADC33,ADC34],(err,result) => {
+        console.log(req.body)
+        if(err){
+            console.log(err)
+            res.json({message:"Index add"})
+        }else{
+            res.json({status: 'error'})
+            //console.log(result)
+            console.log('Add data Success')
+        }
     })
 })
 app.post("/login",(req,res) => {

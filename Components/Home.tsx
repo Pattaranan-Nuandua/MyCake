@@ -1,47 +1,130 @@
-import React, { useState, useEffect } from 'react';
-import { Text, StyleSheet, View, SafeAreaView, Dimensions } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { Text, StyleSheet, View, SafeAreaView, Dimensions, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Navigation } from 'react-native-navigation';
 import { DEFAULT_SERVICES, device, restoreServices } from 'react-native-bluetooth-serial-next';
 import { Device } from 'react-native-ble-plx';
 import AsyncStorage from '@react-native-community/async-storage';
+import { MyContext } from './TestPronider';
 
-/*interface Users {
-    [key: string]: {
-        id: number;
-        name: string;
-        surname: string;
-        age: number;
-        gender: string;
-        weight: number;
-        high: number;
-        step: number;
-        device: string;
-        status: string;
+const Home = ({ navigation, userId }) => {
+    const [error, setError] = useState(null);
+    const [user, setUser] = useState({
+        username: '',
+        email: '',
+        id: null,
+        name: '',
+        surname: '',
+        age: null,
+        gender: '',
+        weight: null,
+        high: null,
+        step: null,
+        device: '',
+        status: ''
+    });
+    const [isLoading, setLoading] = useState(true);
+    /*const fetchUser = async () => {
+        try {
+            const indexToken = await AsyncStorage.getItem('@accessToken');
+            if (!userId) {
+                console.error('User ID is undefined');
+                return;
+            }
+            const response = await fetch(`http://10.64.58.94:3001/api/userselect/${userId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${indexToken}`
+                }
+            });
+            if (!response.ok) {
+                console.error(`Error fetching user data: ${response.statusText}`);
+                return;
+            }
+            const data = await response.json();
+            console.log(data);
+            setUser(data.user);
+            setLoading(false);
+        } catch (error) {
+            console.error(error);
+            setLoading(false);
+        }
+    };*/
+    const fetchUser = async (accessToken: string | undefined) => {
+        try {
+            const response = await fetch('http://10.64.58.94:3001/api/user', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            if (!response.ok) {
+                console.error(`Error fetching user data: ${response.statusText}`);
+                return null;
+            }
+            const data = await response.json();
+            console.log(data);
+            return data.user;
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
     };
-};*/
 
-const Home = ({ navigation }) => {
-    //const [user ,setUser] = useState({})
-   const [user, setUser] = useState({ username: '', email: '', id: null, name: '', surname: '', age: null, gender: '', weight: null, high: null, step: null, device: '', status: '' });
-    const [isloading, setLoading] = useState(true);
-    const fetchUser = async () => {
-        const indextoken = await AsyncStorage.getItem('@accessToken')
-        const response = await fetch('http://10.64.70.214:3001/api/userselect/:id'+ user.id, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer' + indextoken,
-            },
-        })
-        const data = await response.json();
-        console.log(data);
-        setUser(data.user);
-        setLoading(false);
-    }
     useEffect(() => {
-        fetchUser()
-    }, [isloading])
+        if (userId ) {
+            //fetchUser();
+        }
+    }, [userId]);
+
+    const { data } = useContext(MyContext);
+    const checkFoot = () => {
+        if (
+            parseInt(data.ADC11) >= 12000 &&
+            parseInt(data.ADC12) >= 12000 &&
+            parseInt(data.ADC13) >= 12000 &&
+            parseInt(data.ADC14) >= 12000 &&
+            parseInt(data.ADC21) >= 12000 &&
+            parseInt(data.ADC22) >= 12000 &&
+            parseInt(data.ADC23) >= 12000 &&
+            parseInt(data.ADC24) >= 12000 &&
+            parseInt(data.ADC31) >= 12000 &&
+            parseInt(data.ADC32) >= 12000 &&
+            parseInt(data.ADC33) >= 12000 &&
+            parseInt(data.ADC34) >= 12000
+        ) {
+            return 'Normal foot';
+        } else if (
+            parseInt(data.ADC11) < 12000 ||
+            parseInt(data.ADC12) < 12000 ||
+            parseInt(data.ADC13) < 12000 ||
+            parseInt(data.ADC14) < 12000 ||
+            parseInt(data.ADC22) < 12000 ||
+            parseInt(data.ADC23) < 12000 ||
+            parseInt(data.ADC24) < 12000 ||
+            parseInt(data.ADC31) < 12000 ||
+            parseInt(data.ADC33) < 12000 ||
+            parseInt(data.ADC34) < 12000
+        ) {
+            return 'FlatFoot';
+        } else if (
+            parseInt(data.ADC11) >= 12000 &&
+            parseInt(data.ADC12) >= 12000 &&
+            parseInt(data.ADC13) >= 12000 &&
+            parseInt(data.ADC14) >= 12000 &&
+            parseInt(data.ADC22) >= 12000 &&
+            parseInt(data.ADC31) >= 12000 &&
+            parseInt(data.ADC32) >= 12000 &&
+            parseInt(data.ADC33) >= 12000 &&
+            parseInt(data.ADC34) >= 12000
+        ) {
+            return 'High arch';
+        } else {
+            return 'Sleep';
+        }
+    };
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.text} >ยินดีต้อนรับ</Text>
@@ -56,12 +139,25 @@ const Home = ({ navigation }) => {
             </View>
             <View style={styles.box}>
                 <View style={styles.box}>
-                    {isloading ?
-                        <Text>Loading...</Text>
-                        :
+                    {isLoading ? (
                         <View>
+                            <Text>Loading...</Text>
                         </View>
-                    }
+                    ) : error ? (
+                        <View>
+                            <Text>{error}</Text>
+                        </View>
+                    ) : (
+                        <View>
+                            <Text>คุณ {user.username} นามสกุล {user.surname}</Text>
+                            <Text>อายุ {user.age} ปี</Text>
+                            <Text>น้ำหนัก {user.age} กิโลกรัม</Text>
+                            <Text>ส่วนสูง {user.age} เซนติเมตร</Text>
+                            <Text>อุปกรณ์: </Text>
+                            <Text>สถานะอุปกรณ์: </Text>
+                            <Text>Foot Type: {checkFoot()}</Text>
+                        </View>
+                    )}
                 </View>
             </View>
         </SafeAreaView>

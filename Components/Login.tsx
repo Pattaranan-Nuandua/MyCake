@@ -6,7 +6,6 @@ import { Button } from '@react-native-material/core';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import logofoot from '../Image/logo.png';
 import HomeScreen from './Home';
-import Register from './Register';
 import Resetpassword from './Resetpassword';
 import { Navigation } from 'react-native-navigation';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
@@ -16,6 +15,8 @@ const logo = Image.resolveAssetSource(logofoot).uri;
 const Login = ({ navigation }) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [isLoading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const handleLogin = async () => {
         if (
@@ -24,7 +25,7 @@ const Login = ({ navigation }) => {
         ) {
             Alert.alert('กรุณากรอกข้อมูลให้ครบถ้วน');
         }else {
-            const response = await fetch('http://10.64.67.61:3001/login', {
+            const response = await fetch('http://10.64.58.94:3001/login', {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
@@ -34,11 +35,15 @@ const Login = ({ navigation }) => {
                     password: password,
                 }),
             })
+            if (!response.ok) {
+                console.error(`Error logging in: ${response.statusText}`);
+                setError('Invalid username or password');
+                setLoading(false);
+                return;
+            }
             const data = await response.json()
             if (data.status === 'ok') {
-                //await AsyncStorage.setItem("@usertoken", JSON.stringify(data));
-                
-                await AsyncStorage.setItem('@accessToken', data)
+                await AsyncStorage.setItem('@accessToken', JSON.stringify(data));
                 const indextoken = await AsyncStorage.getItem("@accessToken")
                 //const indextoken = JSON.parse(indextoken);
                 console.log(indextoken)
@@ -93,7 +98,7 @@ const Login = ({ navigation }) => {
                         borderRadius: 10,
                         marginTop: 30,
                     }}>
-                    <Text style={{ color: 'white', alignSelf: 'center', }}>Login</Text>
+                    <Text style={{ color: 'white', alignSelf: 'center', }}>เข้าสู่ระบบ</Text>
                 </TouchableOpacity>
             </LinearGradient>
         </View>

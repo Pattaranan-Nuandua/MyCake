@@ -3,6 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons'
+import { Device } from 'react-native-ble-plx';
+
 
 import SplashScreen from '../Components/SplashScreen';
 import Home from '../Components/Home';
@@ -14,12 +16,14 @@ import Settings from '../Components/Settings';
 import Privacy from '../Components/Privacy';
 import EditProfile from '../Components/EditProfile';
 import Sighup from '../Components/Sighup'
-import { HomeScreen } from '../M5stickC/HomeSC';
+import DeviceData from '../Components/Cake';
+import Heatmap from '../Components/Heatmap';
+///context
+import TestProvider from '../Components/TestPronider';
+import H from '../Components/h';
 
 //const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-import { Device } from 'react-native-ble-plx';
-import DeviceData from '../Components/Cake';
 
 export type RootStackParamList = {
     SplashScreen: undefined;
@@ -29,12 +33,12 @@ export type RootStackParamList = {
     register: undefined;
     editprofile: undefined;
     privacy: undefined;
-    HomeSC: undefined;
     Device: { device: Device };
     mm: undefined;
     Home:undefined;
     HomeScreen:undefined;
     devicedata:undefined;
+    heatmap:undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -53,7 +57,7 @@ const BottomTabNavScreenGroup =()=>{
                             iconName = 'man';
                             break;
                         case 'Insole':
-                            iconName = 'analytics';
+                            iconName = 'analytics-outline';
                             break;
                         case 'Settings':
                             iconName = 'settings';
@@ -148,14 +152,7 @@ const MainStackScreen =()=>{
                     headerShown: false,
                 }}
                 name="editprofile"
-                component={EditProfile}
-            />
-            <Stack.Screen
-                options={{
-                    headerShown: false,
-                }}
-                name="HomeSC"
-                component={HomeScreen}
+                component={EditProfile}           ///
             />
             <Stack.Screen     
                 options={{
@@ -164,6 +161,13 @@ const MainStackScreen =()=>{
                 name="devicedata"
                 component={DeviceData}
             />
+            <Stack.Screen     
+                options={{
+                    headerShown: false,
+                }}
+                name="heatmap"
+                component={Heatmap}
+            />
             
         </Stack.Navigator>
     )
@@ -171,9 +175,11 @@ const MainStackScreen =()=>{
 
 const Navigation =()=>{
     return (
-        <NavigationContainer>
-            <MainStackScreen/>
-        </NavigationContainer>
+        <TestProvider>
+            <NavigationContainer>
+                    <MainStackScreen/>
+            </NavigationContainer>
+        </TestProvider>
     )
 };
 

@@ -1,8 +1,27 @@
 PODS:
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
   - BEMCheckBox (1.4.1)
   - boost (1.76.0)
   - BVLinearGradient (2.6.2):
     - React-Core
+  - Charts (4.1.0):
+    - Charts/Core (= 4.1.0)
+  - Charts/Core (4.1.0):
+    - SwiftAlgorithms (~> 1.0)
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.70.6)
@@ -80,6 +99,7 @@ PODS:
   - HMSegmentedControl (1.5.6)
   - iOSDFULibrary (4.11.1):
     - ZIPFoundation (= 0.9.11)
+  - LFHeatMap (1.0.2)
   - libevent (2.1.12)
   - MultiplatformBleAdapter (0.1.9)
   - OpenSSL-Universal (1.1.1100)
@@ -352,6 +372,14 @@ PODS:
   - react-native-ble-plx (2.0.3):
     - MultiplatformBleAdapter (= 0.1.9)
     - React-Core
+  - react-native-charts-wrapper (0.5.11):
+    - Charts (= 4.1.0)
+    - React
+    - SwiftyJSON (= 5.0)
+  - react-native-heat-map (0.0.2):
+    - AFNetworking (~> 3.0)
+    - LFHeatMap (~> 1.0.2)
+    - React
   - react-native-nordic-dfu (3.2.1):
     - iOSDFULibrary (~> 4.11.1)
     - React
@@ -521,6 +549,8 @@ PODS:
   - RNVectorIcons (9.2.0):
     - React-Core
   - SocketRocket (0.6.0)
+  - SwiftAlgorithms (1.0.0)
+  - SwiftyJSON (5.0.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -595,6 +625,8 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-ble-manager (from `../node_modules/react-native-ble-manager`)
   - react-native-ble-plx (from `../node_modules/react-native-ble-plx`)
+  - react-native-charts-wrapper (from `../node_modules/react-native-charts-wrapper`)
+  - "react-native-heat-map (from `../node_modules/@cawfree/react-native-heat-map`)"
   - react-native-nordic-dfu (from `../node_modules/react-native-nordic-dfu`)
   - react-native-quick-base64 (from `../node_modules/react-native-quick-base64`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -628,7 +660,9 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AFNetworking
     - BEMCheckBox
+    - Charts
     - CocoaAsyncSocket
     - Flipper
     - Flipper-Boost-iOSX
@@ -642,10 +676,13 @@ SPEC REPOS:
     - fmt
     - HMSegmentedControl
     - iOSDFULibrary
+    - LFHeatMap
     - libevent
     - MultiplatformBleAdapter
     - OpenSSL-Universal
     - SocketRocket
+    - SwiftAlgorithms
+    - SwiftyJSON
     - YogaKit
     - ZIPFoundation
 
@@ -736,6 +773,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-ble-manager"
   react-native-ble-plx:
     :path: "../node_modules/react-native-ble-plx"
+  react-native-charts-wrapper:
+    :path: "../node_modules/react-native-charts-wrapper"
+  react-native-heat-map:
+    :path: "../node_modules/@cawfree/react-native-heat-map"
   react-native-nordic-dfu:
     :path: "../node_modules/react-native-nordic-dfu"
   react-native-quick-base64:
@@ -798,9 +839,11 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  AFNetworking: cb604b1c2bded0871f5f61f5d53653739e841d6b
   BEMCheckBox: 5ba6e37ade3d3657b36caecc35c8b75c6c2b1a4e
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   BVLinearGradient: 34a999fda29036898a09c6a6b728b0b4189e1a44
+  Charts: 354f86803d11d9c35de280587fef50d1af063978
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: 48289402952f4f7a4e235de70a9a590aa0b79ef4
@@ -819,6 +862,7 @@ SPEC CHECKSUMS:
   hermes-engine: 2af7b7a59128f250adfd86f15aa1d5a2ecd39995
   HMSegmentedControl: 34c1f54d822d8308e7b24f5d901ec674dfa31352
   iOSDFULibrary: 3500ac00451aa7d8ec48a752e91099669a2c1d27
+  LFHeatMap: 433197b20e4d57a9502bc2a2a21300fa851ff3c6
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   MultiplatformBleAdapter: 5a6a897b006764392f9cef785e4360f54fb9477d
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
@@ -858,6 +902,8 @@ SPEC CHECKSUMS:
   React-logger: 1623c216abaa88974afce404dc8f479406bbc3a0
   react-native-ble-manager: f8add48474ad08a0bd3e46b2d1ebff5e00a628b7
   react-native-ble-plx: f10240444452dfb2d2a13a0e4f58d7783e92d76e
+  react-native-charts-wrapper: 4461b72f48e737a490e968bf2468cc0fd2281681
+  react-native-heat-map: 6ca1fe95f29b97e6ee8d8995b9aea8b5ba8bbd96
   react-native-nordic-dfu: 9a4cfa2b940cd12025616feed8271b7c5043113d
   react-native-quick-base64: e657e9197e61b60a9dec49807843052b830da254
   react-native-safe-area-context: 39c2d8be3328df5d437ac1700f4f3a4f75716acc
@@ -888,6 +934,8 @@ SPEC CHECKSUMS:
   RNSVG: c1e76b81c76cdcd34b4e1188852892dc280eb902
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
+  SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   Yoga: 99caf8d5ab45e9d637ee6e0174ec16fbbb01bcfc
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
   ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
