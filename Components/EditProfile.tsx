@@ -4,7 +4,6 @@ import { Button} from '@react-native-material/core';
 import Settings from './Settings';
 
 const EditProfile = ({navigation})=>{
-
     const [text0, onChangeText0] = React.useState("");
     const [text1, onChangeText1] = React.useState("");
     const [text2, onChangeText2] = React.useState("");

@@ -34,7 +34,7 @@ function DeviceData ({navigation}) {
         //     updateData();
         // })
     }
-    const AddIndex = setInterval(handleAddIndex,10000);
+    //const AddIndex = setInterval(handleAddIndex,1000);
 
     const [connectedDevice, setConnectedDevice] = useState<Device>();
     const [isConnected, setIsConnected] = useState(false);
@@ -48,10 +48,8 @@ function DeviceData ({navigation}) {
             if (scannedDevice && scannedDevice.name === 'M5StickC-Plus') {
                 bleManager.stopDeviceScan();
                 handleConnect(scannedDevice);
-                
                 navigation.navigate('Insole');
-                // {handleAddIndex}
-                setInterval(handleAddIndex, 500);
+                setInterval(handleAddIndex, 1200);
                 //{handleAddIndex};
             }
         });

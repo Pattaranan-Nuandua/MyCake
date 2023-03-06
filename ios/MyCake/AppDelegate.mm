@@ -8,7 +8,7 @@
 
 #if RCT_NEW_ARCH_ENABLED
 #import <React/CoreModulesPlugins.h>
-#import <React/RCTCxxBridgeDelegate.h>
+#import <React/RCTCxxBridgeDelegatcd e.h>
 #import <React/RCTFabricSurfaceHostingProxyRootView.h>
 #import <React/RCTSurfacePresenter.h>
 #import <React/RCTSurfacePresenterBridgeAdapter.h>
@@ -99,7 +99,7 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 - (std::unique_ptr<facebook::react::JSExecutorFactory>)jsExecutorFactoryForBridge:(RCTBridge *)bridge
 {
   _turboModuleManager = [[RCTTurboModuleManager alloc] initWithBridge:bridge
-                                                             delegate:self
+                                                            delegate:self
                                                             jsInvoker:bridge.jsCallInvoker];
   return RCTAppSetupDefaultJsExecutorFactory(bridge, _turboModuleManager);
 }
@@ -118,8 +118,8 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 }
 
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:(const std::string &)name
-                                                     initParams:
-                                                         (const facebook::react::ObjCTurboModule::InitParams &)params
+                                                      initParams:
+                                                        (const facebook::react::ObjCTurboModule::InitParams &)params
 {
   return nullptr;
 }

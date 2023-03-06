@@ -18,6 +18,7 @@ import EditProfile from '../Components/EditProfile';
 import Sighup from '../Components/Sighup'
 import DeviceData from '../Components/Cake';
 import Heatmap from '../Components/Heatmap';
+import History from '../Components/History';
 ///context
 import TestProvider from '../Components/TestPronider';
 import H from '../Components/h';
@@ -39,6 +40,7 @@ export type RootStackParamList = {
     HomeScreen:undefined;
     devicedata:undefined;
     heatmap:undefined;
+    History:undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -167,6 +169,13 @@ const MainStackScreen =()=>{
                 }}
                 name="heatmap"
                 component={Heatmap}
+            />
+            <Stack.Screen     
+                options={{
+                    headerShown: false,
+                }}
+                name="History"
+                component={History}
             />
             
         </Stack.Navigator>

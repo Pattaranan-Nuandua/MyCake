@@ -6,6 +6,7 @@ import { MyContext } from './TestPronider';
 import * as d3 from 'd3-scale';
 import { scaleLinear } from 'd3-scale';
 import { interpolateRgb } from 'd3-interpolate';
+import { Navigation } from 'react-native-navigation';
 
 
 //const logofoot = Image.resolveAssetSource(footpic).uri;
@@ -14,7 +15,7 @@ import { interpolateRgb } from 'd3-interpolate';
 // const CHARACTERISTIC_BLE = "ae41c84a-2fc1-4b66-8531-02e76eb67315"; //use
 
 
-const Insole = () => {
+const Insole = ({navigation}) => {
     const { data, setData } = useContext(MyContext);
     const interpolate = interpolateRgb('#00FF00', '#FF0000');
     //const colorScale = d3.interpolateRgb('#00FF00', '#FF0000')(0.5);
@@ -44,7 +45,8 @@ const Insole = () => {
     return (
         <View style={styles.container}>
             <Text style={{ fontWeight: '700', fontSize: 22, marginTop: 30 }}>Heatmap</Text>
-            {/* <Button title='pushData' onPress={handleAddIndex}></Button> */}
+             <Button  title='History' onPress={() =>
+        navigation.navigate('History')}></Button> 
             <ScrollView>
                 {/* <MyLineChart /> */}
                 {/* <Text>{JSON.stringify(route.params)}</Text> */}

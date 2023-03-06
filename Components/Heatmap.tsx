@@ -1,26 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import * as d3 from 'd3-scale';
-//import mockData from './mockData';
-//import { MyContext } from "./Cake";
 import { MyContext } from './TestPronider';
 import PercentageBar from './PercentageBar';
 
-
 const Heatmap = () => {
-  //const [data, setData] = useState([]);
-
-  //useEffect(() => {
-  // Fetch data from API here
-  //setData(mockData);
-  //}, []);
-
   const { data, setData } = useContext(MyContext);
   console.log("Heatmap", data);
-
-  // Define the color scale using d3's interpolate function
   const colorScale = d3.interpolateRgb('#00FF00', '#FF0000');
-
   function getColor(value) {
     // Map the value to a range between 0 and 1
     const mappedValue = (value - 0) / (1023 - 0);

@@ -3,6 +3,7 @@ const app = express();
 const mysql = require("mysql");
 const cors = require("cors");
 const bodyParser = require('body-parser')
+const router = express.Router();
 
 app.use(cors());
 app.use(bodyParser.json())
@@ -28,20 +29,29 @@ app.get("/", (req, res) => {
 });
 
 //use
-app.get("/api/userselect/:id", (req, res) => {
+// Define a route for retrieving user information
+app.get('/users/:id', (req, res) => {
+    // Get the user ID from the URL parameter
     const id = req.params.id;
-    db.query("SELECT * FROM users WHERE id = ?", [id], (err, result) => {
-        if (err) {
-            console.error(err);
-            res.status(500).json({ error: "Error fetching user" });
-        } else if (result.length == 0) {
-            res.status(404).json({ error: "User not found" });
-        } else {
-            res.json(result[0]);
+    // Execute a MySQL query to retrieve the user data
+    pool.query('SELECT * FROM users WHERE id = ?', [id], (error, results, fields) => {
+        if (error) {
+            return res.status(500).send(error);
         }
+        // Send the user data as a JSON response
+        res.json(results[0]);
     });
 });
-
+app.get('/profile', (req, res) => {
+    const userId = req.user.id; // assuming you have the user id in the request object after login
+    const sqlQuery = `SELECT * FROM users WHERE id = ${userId}`;
+    connection.query(sqlQuery, (error, results, fields) => {
+        if (error) throw error;
+        const user = results[0];
+      // render the profile page with user data
+    res.render('profile', { user });
+    });
+});
 
 app.post("/add",(req,res) => {
     const {email,username,password,fullname,surname,weight,high,age,gender,details} = req.body
@@ -51,12 +61,31 @@ app.post("/add",(req,res) => {
             res.json({message:"User Add"})
         }else if(result.lenght > 0){
             res.json({status: 'ok'})
+            const lastInsertId = result.insertId;
+            console.log("Last inserted ID:", lastInsertId);
+            res.json({status: 'ok', lastInsertId: lastInsertId})
         }else {
             res.json({status: 'err'})
         }
-            
     })
 })
+
+/*app.post("/add"),(req,res) => {
+    const {email,username,password,fullname,surname,weight,high,age,gender,details} = req.body
+    db.query('INSERT INTO users (email,username,password,fullname,surname,weight,high,age,gender,details) VALUES(?,?,?,?,?,?,?,?,?,?)',[email,username,password,fullname,surname,weight,high,age,gender,details],(err,result) => {
+        if (err){
+            console.log(err)
+            res.json({message:"User Add"})
+        } else if(result.length > 0) {
+            const lastInsertId = result.insertId;
+            console.log("Last inserted ID:", lastInsertId);
+            res.json({status: 'ok', lastInsertId: lastInsertId})
+        } else {
+            res.json({status: 'err'})
+        }
+    })
+}*/
+
 app.get("/add/index/show",(req, res) => {
     db.query('SELECT * FROM index_data',(err,result) => {
         if(err){

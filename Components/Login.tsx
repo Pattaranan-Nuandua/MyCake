@@ -7,16 +7,14 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import logofoot from '../Image/logo.png';
 import HomeScreen from './Home';
 import Resetpassword from './Resetpassword';
-import { Navigation } from 'react-native-navigation';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 //import AsyncStorage from '@react-native-async-storage/async-storage';
-
 const logo = Image.resolveAssetSource(logofoot).uri;
-const Login = ({ navigation }) => {
+
+const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [isLoading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const navigation = useNavigation();
 
     const handleLogin = async () => {
         if (
@@ -24,38 +22,40 @@ const Login = ({ navigation }) => {
             password.length === 0 
         ) {
             Alert.alert('กรุณากรอกข้อมูลให้ครบถ้วน');
-        }else {
-            const response = await fetch('http://10.64.58.94:3001/login', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: username,
-                    password: password,
-                }),
-            })
-            if (!response.ok) {
-                console.error(`Error logging in: ${response.statusText}`);
-                setError('Invalid username or password');
-                setLoading(false);
-                return;
-            }
-            const data = await response.json()
-            if (data.status === 'ok') {
-                await AsyncStorage.setItem('@accessToken', JSON.stringify(data));
-                const indextoken = await AsyncStorage.getItem("@accessToken")
-                //const indextoken = JSON.parse(indextoken);
-                console.log(indextoken)
-                Alert.alert('เข้าสู่ระบบสำเร็จ');
-                //'Successfully Login'
-                navigation.navigate('Home');
-            } else {
-                Alert.alert(data.status, data.message)
+        } else {
+            try {
+                const response = await fetch('http://10.64.58.94:3001/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password,
+                    }),
+                });
+                if (!response.ok) {
+                    console.error(`Error logging in: ${response.statusText}`);
+                } else {
+                    const data = await response.json()
+                    if (data.status === 'ok') {
+                        await AsyncStorage.setItem('@accessToken', JSON.stringify(data));
+                        const indextoken = await AsyncStorage.getItem("@accessToken")
+                        console.log(indextoken)
+                        Alert.alert('เข้าสู่ระบบสำเร็จ');
+                        //'Successfully Login'
+                        navigation.navigate('Home');
+                    } else {
+                        Alert.alert(data.status, data.message)
+                    }
+                }
+            } catch (err) {
+                console.error('Error logging in:', err);
+                Alert.alert('เกิดข้อผิดพลาดในการเชื่อมต่อ');
             }
         }
     }
-
     return (
         <View>
             <LinearGradient
